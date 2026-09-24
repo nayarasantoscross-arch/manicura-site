@@ -165,6 +165,7 @@
                padding: 1px 7px; border-radius: 9999px; background: rgba(0,0,0,.45); color: #fff; }
    .ponto.ativo { background: #B46342; }
    #zoom.aberto { display: flex; }
+   article.destaque { outline: 3px solid #B46342; outline-offset: 3px; transition: outline-color .6s; }
   </style>
 
   <script>
@@ -202,8 +203,17 @@
         aviso.textContent = "Não conseguimos confirmar o estoque agora — chame no WhatsApp para saber a disponibilidade.";
         aviso.classList.remove("hidden");
       }
+      // Links de fora (PDF, WhatsApp): ?cat=Anéis abre a categoria; #p-162239 rola até a peça e destaca.
+      var cat = new URLSearchParams(location.search).get("cat");
+      if (cat && estado.pecas.some(function (p) { return p.categoria === cat; })) estado.categoria = cat;
       montarFiltros();
       render();
+      var alvo = /^#p-\d+$/.test(location.hash) && document.querySelector(location.hash);
+      if (alvo) {
+        alvo.scrollIntoView({ block: "center" });
+        alvo.classList.add("destaque");
+        setTimeout(function () { alvo.classList.remove("destaque"); }, 2600);
+      }
     });
 
     function montarFiltros() {
@@ -241,7 +251,7 @@
               }).join("") + "</div>"
             : "")
         : '<div class="h-full flex flex-col items-center justify-center text-center text-black/40 text-xs font-subtitle gap-1"><span class="text-2xl">✨</span>Foto em breve</div>';
-      return '<article class="bg-white rounded-2xl border border-[#D1BFA7]/50 overflow-hidden flex flex-col">' +
+      return '<article id="p-' + esc(p.codigo) + '" class="bg-white rounded-2xl border border-[#D1BFA7]/50 overflow-hidden flex flex-col">' +
         '<div class="card-foto relative bg-white">' + fotos + selo + "</div>" +
         '<div class="p-3 md:p-4 flex flex-col gap-1 flex-1">' +
           '<h3 class="font-subtitle text-sm leading-snug">' + esc(p.nome) + "</h3>" +
