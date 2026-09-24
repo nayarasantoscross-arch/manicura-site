@@ -210,9 +210,12 @@
       render();
       var alvo = /^#p-\d+$/.test(location.hash) && document.querySelector(location.hash);
       if (alvo) {
-        alvo.scrollIntoView({ block: "center" });
+        // o Tailwind (CDN) aplica os estilos dos cards um instante depois do render e o layout muda:
+        // rola de novo depois que assenta, senão a peça fica fora da tela.
+        var rolar = function () { alvo.scrollIntoView({ block: "center" }); };
+        rolar(); setTimeout(rolar, 350); setTimeout(rolar, 1000);
         alvo.classList.add("destaque");
-        setTimeout(function () { alvo.classList.remove("destaque"); }, 2600);
+        setTimeout(function () { alvo.classList.remove("destaque"); }, 3200);
       }
     });
 
