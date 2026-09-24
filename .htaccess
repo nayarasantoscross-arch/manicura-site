@@ -1,0 +1,4 @@
+# Canonico: redireciona www para sem-www (301)
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^www\.manicuraexpressnails\.com [NC]
+RewriteRule ^(.*)$ https://manicuraexpressnails.com/$1 [L,R=301]
