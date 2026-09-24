@@ -155,7 +155,14 @@
    .foto-trilho { position: absolute; inset: 0; display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; height: 100%; }
    .foto-trilho::-webkit-scrollbar { display: none; }
    .foto-trilho img { flex: 0 0 100%; width: 100%; height: 100%; min-width: 0; object-fit: contain; scroll-snap-align: center; cursor: zoom-in; }
-   .ponto { width: 6px; height: 6px; border-radius: 9999px; background: #D1BFA7; }
+   .ponto { width: 8px; height: 8px; padding: 0; border: 0; border-radius: 9999px; background: #D1BFA7; cursor: pointer; }
+   .seta { position: absolute; top: 50%; transform: translateY(-50%); z-index: 2; width: 30px; height: 30px; border-radius: 9999px;
+           border: 1px solid #D1BFA7; background: rgba(255,255,255,.92); color: #8E4A2C; font-size: 20px; line-height: 26px;
+           text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,.12); cursor: pointer; }
+   .seta:hover { background: #B46342; color: #fff; border-color: #B46342; }
+   .seta.esq { left: 6px; } .seta.dir { right: 6px; }
+   .contador { position: absolute; top: 8px; right: 8px; font-family: "Montserrat", sans-serif; font-size: 11px;
+               padding: 1px 7px; border-radius: 9999px; background: rgba(0,0,0,.45); color: #fff; }
    .ponto.ativo { background: #B46342; }
    #zoom.aberto { display: flex; }
   </style>
@@ -225,7 +232,14 @@
         ? '<div class="foto-trilho">' + p.fotos.map(function (f, i) {
             return '<img loading="lazy" src="semijoias/img/' + esc(f) + '" alt="' + esc(p.nome) + (i ? " — foto " + (i + 1) : "") + '">';
           }).join("") + "</div>" +
-          (p.fotos.length > 1 ? '<div class="absolute bottom-2 inset-x-0 flex justify-center gap-1">' + p.fotos.map(function (_, i) { return '<span class="ponto' + (i ? "" : " ativo") + '"></span>'; }).join("") + "</div>" : "")
+          (p.fotos.length > 1
+            ? '<button type="button" class="seta esq" data-dir="-1" aria-label="Foto anterior">‹</button>' +
+              '<button type="button" class="seta dir" data-dir="1" aria-label="Próxima foto">›</button>' +
+              '<span class="contador">1/' + p.fotos.length + "</span>" +
+              '<div class="absolute bottom-2 inset-x-0 flex justify-center gap-1.5">' + p.fotos.map(function (_, i) {
+                return '<button type="button" class="ponto' + (i ? "" : " ativo") + '" data-i="' + i + '" aria-label="Foto ' + (i + 1) + '"></button>';
+              }).join("") + "</div>"
+            : "")
         : '<div class="h-full flex flex-col items-center justify-center text-center text-black/40 text-xs font-subtitle gap-1"><span class="text-2xl">✨</span>Foto em breve</div>';
       return '<article class="bg-white rounded-2xl border border-[#D1BFA7]/50 overflow-hidden flex flex-col">' +
         '<div class="card-foto relative bg-white">' + fotos + selo + "</div>" +
@@ -254,15 +268,50 @@
         : '<p class="col-span-full text-center text-black/50 py-16">Nenhuma peça nesse filtro agora.</p>';
       grade.querySelectorAll(".foto-trilho").forEach(function (t) {
         var pts = t.parentNode.querySelectorAll(".ponto");
+        var cont = t.parentNode.querySelector(".contador");
         if (pts.length) t.addEventListener("scroll", function () {
           var i = Math.round(t.scrollLeft / t.clientWidth);
           pts.forEach(function (p, k) { p.classList.toggle("ativo", k === i); });
+          cont.textContent = (i + 1) + "/" + pts.length;
         }, { passive: true });
       });
     }
 
     var zoom = document.getElementById("zoom"), zimg = document.getElementById("zoom-img");
+    // Galeria: setas (computador não tem "deslizar") e bolinhas clicáveis; no celular também dá p/ deslizar.
+    function irPara(t, i) {
+      var n = t.children.length;
+      i = (i + n) % n; // dá a volta
+      t.scrollTo({ left: i * t.clientWidth, behavior: "smooth" });
+    }
+    // Deslizar com o dedo: se a rolagem nativa não trocou a foto (alguns celulares), troca por código.
+    var toque = null;
+    grade.addEventListener("touchstart", function (e) {
+      var t = e.target.closest(".foto-trilho");
+      if (!t || t.children.length < 2) return;
+      var x = e.touches[0].clientX, y = e.touches[0].clientY;
+      toque = { t: t, x: x, y: y, ux: x, uy: y, i: Math.round(t.scrollLeft / t.clientWidth) };
+    }, { passive: true });
+    grade.addEventListener("touchmove", function (e) {
+      if (toque) { toque.ux = e.touches[0].clientX; toque.uy = e.touches[0].clientY; }
+    }, { passive: true });
+    grade.addEventListener("touchend", function () {
+      if (!toque) return;
+      var d = toque, dx = d.ux - d.x, dy = d.uy - d.y;
+      toque = null;
+      if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy)) return; // toque ou rolagem vertical da página
+      setTimeout(function () {
+        if (Math.round(d.t.scrollLeft / d.t.clientWidth) === d.i) irPara(d.t, d.i + (dx < 0 ? 1 : -1));
+      }, 250);
+    }, { passive: true });
     grade.addEventListener("click", function (e) {
+      var seta = e.target.closest(".seta"), ponto = e.target.closest(".ponto");
+      if (seta || ponto) {
+        var t = (seta || ponto).closest(".card-foto").querySelector(".foto-trilho");
+        var atual = Math.round(t.scrollLeft / t.clientWidth);
+        irPara(t, seta ? atual + Number(seta.dataset.dir) : Number(ponto.dataset.i));
+        return;
+      }
       if (e.target.matches(".foto-trilho img")) { zimg.src = e.target.src; zimg.alt = e.target.alt; zoom.classList.add("aberto"); }
     });
     function fechar() { zoom.classList.remove("aberto"); }
