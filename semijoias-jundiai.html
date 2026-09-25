@@ -118,6 +118,14 @@
     </header>
 
     <nav id="filtros" aria-label="Filtrar por categoria" class="flex md:flex-wrap md:justify-center gap-2 mb-4 overflow-x-auto -mx-4 px-4 md:mx-0 md:px-0 pb-1"></nav>
+    <div class="flex justify-center mb-4">
+     <label class="relative w-full max-w-md" for="busca">
+      <span class="sr-only">Buscar por código ou nome</span>
+      <svg aria-hidden="true" class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-black/40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="busca" type="search" inputmode="search" autocomplete="off" placeholder="Buscar por código ou nome (ex.: 160411)"
+       class="w-full rounded-full border border-[#D1BFA7] bg-white py-2.5 pl-9 pr-4 text-sm focus:outline-none focus:border-[#B46342] focus-ring">
+     </label>
+    </div>
     <div class="flex justify-center mb-8">
      <label class="inline-flex items-center gap-2 text-sm text-black/70 cursor-pointer select-none">
       <input id="so-disponiveis" type="checkbox" class="accent-[#B46342] w-4 h-4"> Mostrar só peças a pronta entrega
@@ -177,7 +185,8 @@
     var brl = function (v) { return v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" }); };
     var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
 
-    var estado = { pecas: [], categoria: "Todas", soDisponiveis: false };
+    var estado = { pecas: [], categoria: "Todas", soDisponiveis: false, busca: "" };
+    var norm = function (s) { return String(s || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().trim(); };
     var grade = document.getElementById("grade");
 
     function getJSON(url) {
@@ -232,6 +241,8 @@
         render();
       };
       document.getElementById("so-disponiveis").onchange = function (e) { estado.soDisponiveis = e.target.checked; render(); };
+      // busca por código ou nome: procura em TODAS as categorias (quem digita um código quer achar a peça onde estiver)
+      document.getElementById("busca").oninput = function (e) { estado.busca = norm(e.target.value); render(); };
     }
 
     function card(p) {
@@ -269,7 +280,9 @@
 
     function render() {
       var lista = estado.pecas.filter(function (p) {
-        return (estado.categoria === "Todas" || p.categoria === estado.categoria) && (!estado.soDisponiveis || p.status === "disponivel");
+        var b = estado.busca;
+        var casa = !b || norm(p.codigo).indexOf(b) !== -1 || norm(p.nome).indexOf(b) !== -1;
+        return casa && (b || estado.categoria === "Todas" || p.categoria === estado.categoria) && (!estado.soDisponiveis || p.status === "disponivel");
       });
       lista.sort(function (a, b) {
         var ca = ORDEM.indexOf(a.categoria), cb = ORDEM.indexOf(b.categoria);
@@ -278,7 +291,9 @@
         return da - db || a.preco - b.preco;
       });
       grade.innerHTML = lista.length ? lista.map(card).join("")
-        : '<p class="col-span-full text-center text-black/50 py-16">Nenhuma peça nesse filtro agora.</p>';
+        : '<p class="col-span-full text-center text-black/50 py-16">' + (estado.busca
+            ? 'Nenhuma peça com “' + esc(document.getElementById("busca").value.trim()) + '”. Confira o código ou chame a gente no WhatsApp.'
+            : "Nenhuma peça nesse filtro agora.") + "</p>";
       grade.querySelectorAll(".foto-trilho").forEach(function (t) {
         var pts = t.parentNode.querySelectorAll(".ponto");
         var cont = t.parentNode.querySelector(".contador");
