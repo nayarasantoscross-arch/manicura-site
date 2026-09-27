@@ -2,7 +2,9 @@
 que nem sempre executam JavaScript) + dados estruturados (ItemList de Product).
 
 A página continua buscando o estoque AO VIVO na API do app e substitui esta lista ao carregar;
-aqui não vai status de estoque (ficaria velho). Rodar sempre que semijoias/catalogo.json mudar:
+aqui não vai o selo de estoque da vitrine (ficaria velho). No JSON-LD cada Offer leva `availability`:
+PreOrder quando a peça vier marcada "status": "sob_encomenda" no catalogo.json; senão InStock (toda peça
+do catálogo é vendável — pronta entrega ou encomenda). Rodar sempre que semijoias/catalogo.json mudar:
     python tools/catalogo_estatico.py
 """
 import html, json, re, urllib.parse
@@ -19,6 +21,11 @@ LD_INI, LD_FIM = "<!--ld-catalogo:inicio-->", "<!--ld-catalogo:fim-->"
 
 def brl(v):
     return "R$ " + f"{v:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+
+
+def disponibilidade(p):
+    """schema.org/ItemAvailability do Offer: encomenda → PreOrder; o resto → InStock."""
+    return "PreOrder" if p.get("status") == "sob_encomenda" else "InStock"
 
 
 def card(p):
@@ -62,6 +69,7 @@ def main():
         prod = {"@type": "Product", "name": p["nome"], "sku": p["codigo"], "category": p["categoria"],
                 "brand": {"@type": "Brand", "name": "Gift Moment"}, "url": f"{URL}#p-{p['codigo']}",
                 "offers": {"@type": "Offer", "price": f"{p['preco']:.2f}", "priceCurrency": "BRL",
+                           "availability": "https://schema.org/" + disponibilidade(p),
                            "url": f"{URL}#p-{p['codigo']}",
                            "seller": {"@id": "https://manicuraexpressnails.com/#estudio"}}}
         if p["fotos"]:

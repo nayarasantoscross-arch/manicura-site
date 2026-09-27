@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /brand/
+Disallow: /tools/
+Disallow: /_mockup/
 
 Sitemap: https://manicuraexpressnails.com/sitemap.xml
