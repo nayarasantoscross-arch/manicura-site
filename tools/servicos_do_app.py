@@ -184,7 +184,7 @@ def perguntas(grupos, duracao, link):
         q.append(("Quanto tempo demora a manicure com esmalte em gel?",
                   f"Na agenda, a {gel['nome']} ocupa {dur_txt(gel)}. A duração de cada serviço aparece na tabela desta página."))
     q.append(("Quanto tempo dura a esmaltação em gel?",
-              "Com os cuidados certos, a esmaltação em gel tem até 21 dias de durabilidade."))
+              "A esmaltação em gel tem maior durabilidade que o esmalte comum — e os cuidados certos ajudam a mantê-la bonita por mais tempo."))
     q.append(("Quais são as formas de pagamento?",
               "Cartão, Pix ou dinheiro. Os preços desta tabela são os mesmos do agendamento online."))
     q.append(("Como agendar um horário?",
