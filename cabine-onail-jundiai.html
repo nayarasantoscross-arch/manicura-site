@@ -61,6 +61,16 @@
   .onail .fab .trio img, .onail .galeria img { width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:14px; display:block; }
   .onail .galeria figure { margin:0; }
   .onail .galeria figcaption { font-size:13px; color:#666; margin-top:6px; text-align:center; }
+  .onail .cmp-wrap { overflow-x:auto; }
+  .onail .cmp { width:100%; border-collapse:separate; border-spacing:0; font-size:15.5px; min-width:560px; }
+  .onail .cmp th, .onail .cmp td { padding:14px 16px; text-align:left; vertical-align:top; border-bottom:1px solid var(--dourado); }
+  .onail .cmp thead th { font-family:'Montserrat',sans-serif; font-weight:600; font-size:15px; }
+  .onail .cmp thead th:nth-child(2) { color:#6b6b6b; }
+  .onail .cmp thead th:nth-child(3) { background:var(--terracota); color:#fff; border-radius:12px 12px 0 0; }
+  .onail .cmp td:nth-child(1) { font-family:'Montserrat',sans-serif; font-weight:600; color:var(--terracota-p); width:24%; }
+  .onail .cmp td:nth-child(2) { color:#6b6b6b; }
+  .onail .cmp td:nth-child(3) { background:var(--nude); font-weight:600; }
+  .onail .cmp-nota { font-size:13px; color:#6b6b6b; margin-top:14px; }
   .onail section { padding:64px 0; }
   .onail section h2 { font-size:32px; margin-bottom:36px; text-align:center; text-wrap:balance; }
   .onail .cols { display:grid; grid-template-columns:repeat(3,1fr); gap:28px; }
@@ -313,6 +323,27 @@
       </div>
       <p class="legenda">Fotos acima: O NAIL, fabricante da cabine.</p>
     </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Cabine comum × cabine O NAIL</h2>
+    <div class="cmp-wrap">
+      <table class="cmp">
+        <thead><tr><th scope="col"></th><th scope="col">Cabine comum</th><th scope="col">Cabine O NAIL com IA</th></tr></thead>
+        <tbody>
+          <tr><td>Onde a luz acende</td><td>Na mão inteira, inclusive na pele em volta das unhas</td><td>Só sobre as unhas, que a inteligência artificial reconhece uma a uma*</td></tr>
+          <tr><td>Faixas de luz</td><td>Varia de modelo para modelo</td><td>Luz dupla, 365 + 405 nm, para combinar com mais fórmulas de gel*</td></tr>
+          <tr><td>Potência</td><td>Muda muito: um estudo com 17 cabines de salões achou diferença de cerca de 26 vezes na intensidade de luz entre elas<sup><a href="#fonte-cmp">1</a></sup></td><td>109 LEDs e cerca de 30 W, potência de linha profissional*</td></tr>
+          <tr><td>Tempo de secagem</td><td>Ciclo padrão</td><td>Até 50% mais rápido que cabines comuns*</td></tr>
+          <tr><td>Polegares e vãos</td><td>Depende do modelo e da posição da mão</td><td>Cobertura completa, polegares e vãos dos dedos incluídos*</td></tr>
+          <tr><td>Você acompanha</td><td>Sem leitura das unhas por IA</td><td>A tela mostra a IA reconhecendo cada unha</td></tr>
+          <tr><td>Conforto</td><td>Nem sempre tem modo suave</td><td>Modos de secagem suave contra a sensação de ardência*</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="cmp-nota">* Dados da fabricante O NAIL. <span id="fonte-cmp">1. Shipp LR et al. Further investigation into the risk of skin cancer associated with the use of UV nail lamps. <em>JAMA Dermatology</em>, 2014;150(7):775-776. DOI: <a href="https://doi.org/10.1001/jamadermatol.2013.8740" target="_blank" rel="noopener">10.1001/jamadermatol.2013.8740</a>.</span> Além da O NAIL, o estúdio conta com outras 4 cabines certificadas pelo Inmetro.</p>
   </div>
 </section>
 
