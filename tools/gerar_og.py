@@ -19,14 +19,14 @@ PAGINAS = {
     "semijoias-jundiai": ("img/site/sLR31YM.webp", "Semijoias Gift Moment: pronta entrega em até 3x"),
     "blog-jundiai": ("img/site/Cpp0TFl.webp", "Química, segurança e cuidado com as unhas"),
     "artigo-autoclave-vs-estufa-jundiai": ("img/site/rEJjyPw.webp", "Autoclave ou estufa: qual realmente esteriliza?"),
-    "artigo-cabine-alergia-jundiai": ("img/site/cabine-onail-acesa-bancada-jundiai.webp", "Cabine fraca causa alergia ao gel?"),
+    "artigo-cabine-alergia-jundiai": ("img/site/cabine-onail-luz-acesa-bancada-estudio-jundiai.webp", "Cabine de unha faz mal? Entenda a alergia ao gel"),
     "protocolo-biosseguranca-jundiai": ("img/site/HBktedt.webp", "Biossegurança: autoclave a 134 °C"),
     "reflexologia-shiatsu-jundiai": ("img/site/CLEy6Dd.webp", "Reflexologia e shiatsu: o SEU MOMENTO"),
     "esmaltacao-em-gel-jundiai": ("img/site/esmaltacao-gel-nude-cabine-onail-jundiai.webp", "Esmaltação em gel em Jundiaí"),
     "alongamento-de-unhas-jundiai": ("img/site/unhas-amendoadas-francesinha-base-rosada-jundiai.webp", "Alongamento de unhas em Jundiaí"),
     "pedicure-jundiai": ("img/site/estudio-manicura-express-nails-panoramica-jundiai.webp", "Pedicure em Jundiaí, no Anhangabaú"),
 }
-FOCO = {"sobre-nayara-jundiai": (0.5, 0.35), "contato-jundiai": (0.5, 0.12), "pedicure-jundiai": (0.35, 0.5)}
+FOCO = {"artigo-cabine-alergia-jundiai": (0.4, 0.72), "sobre-nayara-jundiai": (0.5, 0.35), "contato-jundiai": (0.5, 0.12), "pedicure-jundiai": (0.35, 0.5)}
 
 
 def fonte(nome, tam, peso):
