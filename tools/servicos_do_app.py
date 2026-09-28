@@ -42,8 +42,15 @@ AVISO = "<!-- gerado por tools/servicos_do_app.py a partir da vitrine do app; n�
 # Textos institucionais das categorias (vêm da página antiga; o app não tem descrição de categoria).
 INTRO = {
     "Esmalte Gel UV": "Durabilidade impecável com brilho espelhado. Utilizamos apenas produtos premium para a saúde das suas unhas.",
-    "Esmalte Tradicional": "Para as amantes do clássico, uma linha completa de esmaltes e removedores hipoalergênicos.",
+    "Esmalte Tradicional": "Para as amantes do clássico, uma linha completa de esmaltes e removedores de formulação suave.",
     "Masculino": "Cuidado e bem-estar também para eles.",
+}
+# Página dedicada de cada categoria (link logo abaixo do título da categoria).
+PAGINA_CAT = {
+    "Esmalte Gel UV": ("esmaltacao-em-gel-jundiai.html", "Esmaltação em gel em Jundiaí: como funciona e perguntas frequentes"),
+    "Esmalte Tradicional": ("pedicure-jundiai.html", "Pedicure em Jundiaí: preços, biossegurança e perguntas frequentes"),
+    "Alongamento": ("alongamento-de-unhas-jundiai.html", "Alongamento de unhas em Jundiaí: como funciona e manutenção"),
+    "Reconstrução Unhas/Cantos": ("pedicure-jundiai.html", "Reconstrução de unhas/cantos na pedicure"),
 }
 FAQ_GEL = "Manicure Gel UV"  # serviço citado no FAQ de preço/duração
 # Erros de digitação conhecidos nos nomes do app (corrigir NO APP; aqui só avisa).
@@ -143,6 +150,9 @@ def html_tabela(grupos, duracao, link):
               f'        <h2 id="{sid}" class="font-subtitle text-xl tracking-wide mb-2">{e(cat)}</h2>']
         if cat in INTRO:
             L.append(f'        <p class="text-sm text-black/70">{e(INTRO[cat])}</p>')
+        if cat in PAGINA_CAT:
+            href, txt = PAGINA_CAT[cat]
+            L.append(f'        <p class="text-sm mt-2"><a class="text-[#B46342] underline" href="{href}">{e(txt)}</a></p>')
         L += ["       </div>", '       <div class="space-y-4">']
         for s in itens:
             desc = f'<p class="text-sm text-black/70">{e(s["descricao"])}</p>' if s["descricao"] else ""
