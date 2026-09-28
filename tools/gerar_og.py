@@ -17,7 +17,7 @@ PAGINAS = {
     "manicure-anhangabau-jundiai": ("img/site/sMd54TO.webp", "Manicure no Anhangabaú, em Jundiaí"),
     "gift-moment-jundiai": ("img/site/b9MxCim.webp", "Gift Moment: presentes e vale-presente"),
     "semijoias-jundiai": ("img/site/sLR31YM.webp", "Semijoias Gift Moment: pronta entrega em até 3x"),
-    "blog-jundiai": ("img/site/Cpp0TFl.webp", "Química, segurança e cuidado com as unhas"),
+    "blog-jundiai": ("img/site/tpo-gel-cabine-luz-prateleira-esmaltes-jundiai.webp", "Química, segurança e cuidado com as unhas"),
     "artigo-autoclave-vs-estufa-jundiai": ("img/site/rEJjyPw.webp", "Autoclave ou estufa: qual realmente esteriliza?"),
     "artigo-cabine-alergia-jundiai": ("img/site/cabine-onail-luz-acesa-bancada-estudio-jundiai.webp", "Cabine de unha faz mal? Entenda a alergia ao gel"),
     "protocolo-biosseguranca-jundiai": ("img/site/HBktedt.webp", "Biossegurança: autoclave a 134 °C"),
