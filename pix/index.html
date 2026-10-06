@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Copiar código PIX | Manicura Express Nails Jundiaí</title>
+  <meta name="description" content="Copie o código PIX Copia e Cola da sua cobrança da Manicura Express Nails / Manicura Gift Moment, em Jundiaí.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#B46342">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@700&amp;family=Montserrat:wght@500;600&amp;family=Open+Sans:wght@400&amp;display=swap" rel="stylesheet">
+  <!--
+    Tela "Copiar código PIX" (decisão da dona 06/10/2026): o ícone de copiar do PDF da cobrança abre esta página.
+    O token vem no FRAGMENTO (#token): não vai ao servidor do site; é lido e APAGADO da barra antes do Analytics carregar.
+    Dados vêm do app (GET app.manicuraexpressnails.com/api/pix/<token>, CORS só deste domínio): marca, valor,
+    vencimento e o código — sem nome, CPF ou itens da cliente. noindex + Disallow no robots.txt; fora do sitemap.
+  -->
+  <script>
+    window.__pixToken = (location.hash || "").slice(1);
+    if (window.__pixToken) history.replaceState(null, "", location.pathname);
+  </script>
+  <!-- Google tag (gtag.js) — visitas desta tela ficam no grupo "pagamento-pix" (separadas do marketing) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-N6DK5RJ3QT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-N6DK5RJ3QT', { page_location: location.origin + '/pix/', page_title: 'Copiar código PIX', content_group: 'pagamento-pix' });
+  </script>
+  <style>
+    :root { --terracota: #B46342; --terracota-esc: #8E4A2C; --bege: #D1BFA7; --creme: #FBF5EE; --creme2: #F3E7DA; --texto: #2B2B2B; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--creme); color: var(--texto); font-family: "Open Sans", sans-serif; -webkit-font-smoothing: antialiased; }
+    main { max-width: 440px; margin: 0 auto; padding: 16px 16px 40px; }
+    .topo { background: var(--terracota); color: var(--creme); border-radius: 20px; padding: 22px 20px 18px; text-align: center; }
+    .topo img { height: 46px; width: auto; display: block; margin: 0 auto; }
+    .topo p { margin: 12px 0 0; font: 600 11px "Montserrat", sans-serif; letter-spacing: .18em; text-transform: uppercase; }
+    .cartao { background: #fff; border: 1px solid var(--bege); border-radius: 18px; padding: 18px 20px; margin-top: 14px; }
+    .rotulo { font: 600 11px "Montserrat", sans-serif; letter-spacing: .12em; text-transform: uppercase; color: var(--terracota-esc); margin: 0; }
+    .valor { font: 700 34px "Raleway", sans-serif; color: var(--terracota-esc); margin: 4px 0 2px; letter-spacing: -.01em; }
+    .prazo { font-size: 15px; margin: 0; }
+    .nota { font-size: 12.5px; color: #6b6b6b; margin: 8px 0 0; }
+    .btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; border: 0; border-radius: 999px; cursor: pointer;
+           background: var(--terracota); color: var(--creme); font: 600 17px "Montserrat", sans-serif; padding: 17px 20px; margin-top: 16px;
+           box-shadow: 0 6px 18px rgba(180, 99, 66, .28); transition: background .15s, transform .05s; }
+    .btn:active { transform: scale(.99); } .btn:hover { background: var(--terracota-esc); }
+    .btn.ok { background: #2F6B4F; box-shadow: none; }
+    .btn svg { width: 22px; height: 22px; flex: none; }
+    .codigo { width: 100%; margin-top: 12px; border: 1px solid var(--terracota); border-radius: 12px; background: var(--creme); padding: 10px 12px;
+              font: 12px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: var(--texto); resize: none; word-break: break-all; }
+    .dica { font-size: 13px; text-align: center; margin: 10px 0 0; min-height: 18px; }
+    .dica.ok { color: #2F6B4F; } .dica.erro { color: var(--terracota-esc); }
+    .passos { margin: 0; padding-left: 18px; font-size: 14px; line-height: 1.6; }
+    .atalhos { margin-top: 26px; text-align: center; }
+    .atalhos h2 { font: 700 18px "Raleway", sans-serif; color: var(--terracota); margin: 0 0 12px; }
+    .atalhos nav { display: flex; flex-direction: column; gap: 10px; }
+    .atalhos a { display: block; padding: 12px 18px; border: 1px solid var(--bege); border-radius: 999px; color: var(--texto); text-decoration: none;
+                 font: 500 14px "Montserrat", sans-serif; background: #fff; }
+    .atalhos a:hover { border-color: var(--terracota); }
+    .aviso { text-align: center; padding: 28px 8px; font-size: 15px; line-height: 1.6; }
+    .rodape { text-align: center; font-size: 12px; color: #8a8a8a; margin-top: 26px; }
+    .rodape a { color: var(--terracota-esc); }
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body>
+<main>
+  <header class="topo">
+    <a href="/" aria-label="Manicura — início"><img id="logo" src="/img/pix/pix-logo-express-nails.webp" alt="Manicura Express Nails" width="520" height="107"></a>
+    <p id="sub">Pagamento por PIX</p>
+  </header>
+
+  <section id="carregando" class="cartao aviso">Carregando seu PIX…</section>
+
+  <section id="erro" class="cartao aviso" hidden></section>
+
+  <div id="pix" hidden>
+    <section class="cartao">
+      <p class="rotulo" id="rotuloValor">Valor a pagar</p>
+      <p class="valor" id="valor"></p>
+      <p class="prazo" id="prazo"></p>
+      <p class="nota" id="titulo"></p>
+
+      <button type="button" class="btn" id="copiar" aria-live="polite">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2.5"/><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5V4.5A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"/></svg>
+        <span id="copiarTxt">Copiar código PIX</span>
+      </button>
+      <p class="dica" id="dica" role="status"></p>
+      <textarea class="codigo" id="codigo" rows="4" readonly aria-label="Código PIX Copia e Cola"></textarea>
+    </section>
+
+    <section class="cartao">
+      <p class="rotulo">Como pagar</p>
+      <ol class="passos">
+        <li>Toque em <strong>Copiar código PIX</strong>.</li>
+        <li>Abra o app do seu banco → <strong>PIX</strong> → <strong>Pix Copia e Cola</strong>.</li>
+        <li>Cole o código e confirme o valor.</li>
+      </ol>
+    </section>
+
+    <section class="atalhos" aria-label="Aproveite e veja também">
+      <h2>Aproveite e veja também</h2>
+      <nav id="links"></nav>
+    </section>
+  </div>
+
+  <p class="rodape">Dúvidas? <a href="https://wa.me/5511959963541" target="_blank" rel="noopener noreferrer">WhatsApp (11) 95996-3541</a><br>Manicura Express Nails · Jundiaí</p>
+</main>
+
+<script>
+(function () {
+  var API = "https://app.manicuraexpressnails.com/api/pix/";
+  var token = window.__pixToken || "";
+  var $ = function (id) { return document.getElementById(id); };
+  var brl = function (v) { return Number(v).toLocaleString("pt-BR", { style: "currency", currency: "BRL" }); };
+  var dataBR = function (iso) { return String(iso).slice(0, 10).split("-").reverse().join("/"); };
+  var horaBR = function (iso) { return new Date(iso).toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo", day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }).replace(",", " às"); };
+  var ev = function (nome, extra) { try { gtag("event", nome, Object.assign({ content_group: "pagamento-pix" }, extra || {})); } catch (e) {} };
+
+  function marca(letra) {
+    var gift = letra === "B";
+    $("logo").src = gift ? "/img/pix/pix-logo-gift-moment.webp" : "/img/pix/pix-logo-express-nails.webp";
+    $("logo").alt = gift ? "Manicura Gift Moment" : "Manicura Express Nails";
+    $("sub").textContent = "Pagamento por PIX · " + (gift ? "produtos" : "serviços");
+  }
+  function erro(msg) {
+    $("carregando").hidden = true; $("pix").hidden = true;
+    $("erro").hidden = false;
+    $("erro").innerHTML = msg + '<br><br><a href="https://wa.me/5511959963541" target="_blank" rel="noopener noreferrer" style="color:#8E4A2C">Falar com o salão no WhatsApp</a>';
+  }
+  function atalhos(letra) {
+    var l = [["/agendar/", "Agendar meu próximo horário", "agendar"]];
+    if (letra === "B") l.push(["/semijoias-jundiai.html", "Ver a coleção de semijoias Gift Moment", "semijoias"]);
+    else l.push(["/servicos-jundiai.html", "Ver serviços e preços", "servicos"]);
+    if (letra === "B") l.push(["/servicos-jundiai.html", "Conhecer nossos serviços", "servicos"]);
+    else l.push(["/semijoias-jundiai.html", "Conhecer as semijoias Gift Moment", "semijoias"]);
+    $("links").innerHTML = l.map(function (x) { return '<a href="' + x[0] + '" data-atalho="' + x[2] + '">' + x[1] + "</a>"; }).join("");
+    Array.prototype.forEach.call($("links").querySelectorAll("a"), function (a) {
+      a.addEventListener("click", function () { ev("pix_atalho", { atalho: a.getAttribute("data-atalho") }); });
+    });
+  }
+  async function copiar(codigo) {
+    var ok = false;
+    try { await navigator.clipboard.writeText(codigo); ok = true; } catch (e) {
+      var t = $("codigo"); t.focus(); t.select(); t.setSelectionRange(0, codigo.length);
+      try { ok = document.execCommand("copy"); } catch (e2) { ok = false; }
+    }
+    if (ok) {
+      $("copiar").classList.add("ok"); $("copiarTxt").textContent = "Código copiado ✓";
+      $("dica").className = "dica ok"; $("dica").textContent = "Agora abra o app do seu banco → PIX → Pix Copia e Cola → cole.";
+      ev("pix_copiar", { resultado: "ok" });
+    } else {
+      $("dica").className = "dica erro"; $("dica").textContent = "Não deu para copiar sozinho: toque e segure no código abaixo e escolha “Copiar”.";
+      ev("pix_copiar", { resultado: "manual" });
+    }
+  }
+
+  if (!/^[A-Za-z0-9_-]{20,64}$/.test(token)) { erro("Link incompleto. Abra de novo pelo PDF ou pela mensagem do WhatsApp."); return; }
+  fetch(API + encodeURIComponent(token), { cache: "no-store", credentials: "omit" })
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      if (d.letra) marca(d.letra);
+      if (d.estado === "pago") { erro("Pagamento recebido. Obrigada! 💖"); return; }
+      if (d.estado === "vencido") { erro("Este PIX já venceu. Peça um código novo ao salão."); return; }
+      if (d.estado !== "ok") { erro("Este PIX não está mais disponível. Peça o código atualizado ao salão."); return; }
+      $("rotuloValor").textContent = d.parcela ? "Valor desta parcela (" + d.parcela + ")" : "Valor a pagar";
+      $("valor").textContent = brl(d.valor);
+      $("prazo").textContent = d.vencimento ? "Vencimento: " + dataBR(d.vencimento) : (d.validoAte ? "Válido até " + horaBR(d.validoAte) : "");
+      $("titulo").textContent = d.titulo ? "Referente à " + d.titulo + "." : "";
+      $("codigo").value = d.codigo;
+      $("copiar").addEventListener("click", function () { copiar(d.codigo); });
+      atalhos(d.letra);
+      $("carregando").hidden = true; $("pix").hidden = false;
+    })
+    .catch(function () { erro("Não foi possível carregar o PIX agora. Tente de novo em instantes."); });
+})();
+</script>
+</body>
+</html>

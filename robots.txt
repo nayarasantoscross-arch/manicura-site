@@ -3,5 +3,6 @@ Allow: /
 Disallow: /brand/
 Disallow: /tools/
 Disallow: /_mockup/
+Disallow: /pix/
 
 Sitemap: https://manicuraexpressnails.com/sitemap.xml
