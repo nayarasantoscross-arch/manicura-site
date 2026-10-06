@@ -19,7 +19,8 @@
     vencimento e o código — sem nome, CPF ou itens da cliente. noindex + Disallow no robots.txt; fora do sitemap.
   -->
   <script>
-    window.__pixToken = (location.hash || "").slice(1);
+    // ?t=<token> (padrão; leitores de PDF trocavam "#" por "%23") ou #<token> (links antigos). Apagado da barra antes do Analytics.
+    window.__pixToken = new URLSearchParams(location.search).get("t") || (location.hash || "").slice(1);
     if (window.__pixToken) history.replaceState(null, "", location.pathname);
   </script>
   <!-- Google tag (gtag.js) — visitas desta tela ficam no grupo "pagamento-pix" (separadas do marketing) -->
@@ -49,8 +50,8 @@
     .btn:active { transform: scale(.99); } .btn:hover { background: var(--terracota-esc); }
     .btn.ok { background: #2F6B4F; box-shadow: none; }
     .btn svg { width: 22px; height: 22px; flex: none; }
-    .codigo { width: 100%; margin-top: 12px; border: 1px solid var(--terracota); border-radius: 12px; background: var(--creme); padding: 10px 12px;
-              font: 12px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: var(--texto); resize: none; word-break: break-all; }
+    .codigo { width: 100%; margin-top: 12px; border: 1px solid var(--terracota); border-radius: 12px; background: var(--creme); padding: 12px 14px;
+              font: 15px/1.55 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: var(--texto); resize: none; word-break: break-all; }
     .dica { font-size: 13px; text-align: center; margin: 10px 0 0; min-height: 18px; }
     .dica.ok { color: #2F6B4F; } .dica.erro { color: var(--terracota-esc); }
     .passos { margin: 0; padding-left: 18px; font-size: 14px; line-height: 1.6; }
@@ -89,7 +90,7 @@
         <span id="copiarTxt">Copiar código PIX</span>
       </button>
       <p class="dica" id="dica" role="status"></p>
-      <textarea class="codigo" id="codigo" rows="4" readonly aria-label="Código PIX Copia e Cola"></textarea>
+      <textarea class="codigo" id="codigo" rows="7" readonly aria-label="Código PIX Copia e Cola"></textarea>
     </section>
 
     <section class="cartao">
