@@ -160,13 +160,13 @@
     </header>
 
     <div id="colecoes" class="hidden grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4 max-w-3xl mx-auto mb-6" role="tablist" aria-label="Escolha a coleção">
-     <button type="button" role="tab" data-col="out26" class="colecao-card">
+     <button type="button" role="tab" data-col="lancamentos" class="colecao-card">
       <img fetchpriority="high" width="1000" height="1000" src="semijoias/img/101100-choker-bolas-lisas-dourado.webp" alt="" class="colecao-foto">
-      <span class="colecao-txt"><span class="colecao-nome">Novidades OUT</span><span class="colecao-sub" data-n="out26"></span></span>
+      <span class="colecao-txt"><span class="colecao-nome">Lançamentos</span><span class="colecao-sub" data-n="lancamentos"></span></span>
      </button>
-     <button type="button" role="tab" data-col="set26" class="colecao-card">
+     <button type="button" role="tab" data-col="presentes" class="colecao-card">
       <img loading="lazy" width="1000" height="1000" src="semijoias/img/160411-brinco-argola-lisa-branco.webp" alt="" class="colecao-foto">
-      <span class="colecao-txt"><span class="colecao-nome">Novidades SET</span><span class="colecao-sub" data-n="set26"></span></span>
+      <span class="colecao-txt"><span class="colecao-nome">Presentes</span><span class="colecao-sub" data-n="presentes"></span></span>
      </button>
      <button type="button" role="tab" data-col="infantil" class="colecao-card">
       <img loading="lazy" width="500" height="500" src="semijoias/img/159184-brinco-infantil-mickey-liso-dourado.webp" alt="" class="colecao-foto">
@@ -465,11 +465,13 @@
         aviso.textContent = "Não conseguimos confirmar o estoque agora — chame no WhatsApp para saber a disponibilidade.";
         aviso.classList.remove("hidden");
       }
-      // Coleções separadas (Novidades OUT × SET × Infantil): ?colecao=set26|infantil abre a coleção; sem parâmetro abre a mais nova (OUT); #p-<código> abre a coleção da peça.
+      // Coleções separadas (Lançamentos × Presentes × Infantil): ?colecao=presentes|infantil abre a coleção; sem parâmetro abre Lançamentos; #p-<código> abre a coleção da peça.
+      // Links antigos (?colecao=set26 / out26, de PDFs já enviados) caem em Lançamentos.
       estado.todas = estado.pecas;
       var q = new URLSearchParams(location.search);
       var doHash = /^#p-/.test(location.hash) && estado.todas.filter(function (p) { return "#p-" + p.codigo === location.hash; })[0];
-      iniciarColecoes(doHash ? doHash.colecao : (COLECOES.indexOf(q.get("colecao")) >= 0 ? q.get("colecao") : COLECOES[0]));
+      var pedida = { set26: "lancamentos", out26: "lancamentos" }[q.get("colecao")] || q.get("colecao");
+      iniciarColecoes(doHash ? doHash.colecao : (COLECOES.indexOf(pedida) >= 0 ? pedida : COLECOES[0]));
       // Links de fora (PDF, WhatsApp): ?cat=Anéis abre a categoria; #p-162239 rola até a peça e destaca.
       var cat = q.get("cat");
       if (cat && estado.pecas.some(function (p) { return p.categoria === cat; })) estado.categoria = cat;
@@ -486,11 +488,11 @@
       }
     });
 
-    var COLECOES = ["out26", "set26", "infantil"]; // ordem dos cartões; a primeira é a que abre por padrão
-    function chaveColecao(nome) { return /infantil/i.test(nome || "") ? "infantil" : /out/i.test(nome || "") ? "out26" : "set26"; }
+    var COLECOES = ["lancamentos", "presentes", "infantil"]; // ordem dos cartões; a primeira é a que abre por padrão
+    function chaveColecao(nome) { return /infantil/i.test(nome || "") ? "infantil" : /presente/i.test(nome || "") ? "presentes" : "lancamentos"; }
     var TEXTO_COL = {
-      out26: { titulo: "Novidades de Outubro", texto: "Chokers, pulseiras, pingentes e piercings que acabaram de chegar — peças lisas e com micro zircônia para usar sozinhas ou em mix, e cordinhas de couro para o celular." },
-      set26: { titulo: "Semijoias Gift Moment", texto: "Brincos, anéis, colares e pulseiras escolhidos a dedo, com banho de alta qualidade e o toque de elegância que combina com unhas bem cuidadas." },
+      lancamentos: { titulo: "Lançamentos Gift Moment", texto: "Brincos, anéis, colares e pulseiras escolhidos a dedo, com banho de alta qualidade e o toque de elegância que combina com unhas bem cuidadas." },
+      presentes: { titulo: "Presentes Gift Moment", texto: "Semijoias prontas para presentear: aniversariantes do mês, quem cuida de você e quem merece ser lembrada. Embalamos para presente no salão." },
       infantil: { titulo: "Gift Moment Infantil", texto: "Brincos, colares, pulseiras e conjuntos delicados para os pequenos, com banho de ouro 18K ou ródio branco — presentes que ficam na memória." }
     };
     function iniciarColecoes(inicial) {
@@ -505,7 +507,7 @@
       });
       box.classList.toggle("hidden", presentes < 2); // só uma coleção no ar: a página fica como antes
       box.onclick = function (e) { var b = e.target.closest("[data-col]"); if (b) trocarColecao(b.dataset.col, false); };
-      if (!estado.todas.some(function (p) { return p.colecao === inicial; })) inicial = COLECOES.filter(function (c) { return estado.todas.some(function (p) { return p.colecao === c; }); })[0] || "set26";
+      if (!estado.todas.some(function (p) { return p.colecao === inicial; })) inicial = COLECOES.filter(function (c) { return estado.todas.some(function (p) { return p.colecao === c; }); })[0] || "lancamentos";
       trocarColecao(inicial, true);
     }
     function trocarColecao(c, inicio) {
