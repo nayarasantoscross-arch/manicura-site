@@ -618,7 +618,7 @@
     var COLECOES = ["pre-venda", "lancamentos", "presentes", "infantil"]; // ordem dos cartões; padrão = pré-venda (se restar peça) senão lançamentos
     function chaveColecao(nome) { return /infantil/i.test(nome || "") ? "infantil" : /presente/i.test(nome || "") ? "presentes" : "lancamentos"; }
     var TEXTO_COL = {
-      "pre-venda": { titulo: "Pré-venda Gift Moment", texto: "Só {total} peças chegando — reserve a sua antes que acabe. Retirada a partir de {data}, pagamento na retirada." },
+      "pre-venda": { titulo: "Pré-venda Gift Moment", texto: "Apenas {total} peças chegando — reserve a sua antes que acabe. Retirada a partir de {data}, pagamento na retirada." },
       lancamentos: { titulo: "Lançamentos Gift Moment", texto: "Brincos, anéis, colares e pulseiras escolhidos a dedo, com banho de alta qualidade e o toque de elegância que combina com unhas bem cuidadas." },
       presentes: { titulo: "Presentes Gift Moment", texto: "Semijoias prontas para presentear: aniversariantes do mês, quem cuida de você e quem merece ser lembrada. Embalamos para presente no salão." },
       infantil: { titulo: "Gift Moment Infantil", texto: "Brincos, colares, pulseiras e conjuntos delicados para os pequenos, com banho de ouro 18K ou ródio branco — presentes que ficam na memória." }
