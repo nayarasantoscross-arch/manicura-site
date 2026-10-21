@@ -159,7 +159,11 @@
      </p>
     </header>
 
-    <div id="colecoes" class="hidden grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4 max-w-3xl mx-auto mb-6" role="tablist" aria-label="Escolha a coleção">
+    <div id="colecoes" class="hidden grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 max-w-4xl mx-auto mb-6" role="tablist" aria-label="Escolha a coleção">
+     <button type="button" role="tab" data-col="pre-venda" class="colecao-card colecao-pv" hidden>
+      <img fetchpriority="high" width="1000" height="1000" src="semijoias/img/178176-colar-gravata-bola-franja-lisa-dourado.webp" alt="" class="colecao-foto">
+      <span class="colecao-txt"><span class="colecao-nome">Pré-venda</span><span class="colecao-sub" data-n="pre-venda"></span></span>
+     </button>
      <button type="button" role="tab" data-col="lancamentos" class="colecao-card">
       <img fetchpriority="high" width="1000" height="1000" src="semijoias/img/101100-choker-bolas-lisas-dourado.webp" alt="" class="colecao-foto">
       <span class="colecao-txt"><span class="colecao-nome">Lançamentos</span><span class="colecao-sub" data-n="lancamentos"></span></span>
@@ -172,6 +176,15 @@
       <img loading="lazy" width="500" height="500" src="semijoias/img/159184-brinco-infantil-mickey-liso-dourado.webp" alt="" class="colecao-foto">
       <span class="colecao-txt"><span class="colecao-nome">Coleção Infantil</span><span class="colecao-sub" data-n="infantil"></span></span>
      </button>
+    </div>
+    <div id="pv-info" class="pv-info max-w-3xl mx-auto mb-6" hidden>
+     <p class="pv-restam" aria-live="polite"><span id="pv-restam"></span></p>
+     <div class="pv-barra" aria-hidden="true"><span id="pv-barra"></span></div>
+     <ol class="pv-passos">
+      <li><b>1</b><span>Toque em <strong>Reservar</strong> na peça que você quer.</span></li>
+      <li><b>2</b><span>Escolha o dia da retirada no salão (<span id="pv-a-partir">a partir de 23/10</span>, de segunda a sábado).</span></li>
+      <li><b>3</b><span>Pague só na retirada: Pix, débito ou até 3x sem juros no cartão.</span></li>
+     </ol>
     </div>
     <nav id="filtros" aria-label="Filtrar por categoria" class="flex md:flex-wrap md:justify-center gap-2 mb-4 overflow-x-auto -mx-4 px-4 md:mx-0 md:px-0 pb-1"></nav>
     <div class="flex justify-center mb-4">
@@ -422,6 +435,42 @@
    <img id="zoom-img" alt="" class="max-h-[85vh] max-w-full rounded-2xl bg-white">
   </div>
 
+  <div id="reserva" role="dialog" aria-modal="true" aria-labelledby="rs-titulo">
+   <div class="rs-painel">
+    <div class="rs-topo">
+     <h2 id="rs-titulo" class="font-title text-xl text-[#8E4A2C]">Reservar peça</h2>
+     <button type="button" class="rs-fechar" data-fechar aria-label="Fechar">×</button>
+    </div>
+    <div id="rs-peca" class="rs-peca"></div>
+    <form id="rs-form" novalidate>
+     <div class="rs-campo">
+      <label for="rs-nome">Nome completo</label>
+      <input id="rs-nome" name="nome" type="text" autocomplete="name" autocapitalize="words" maxlength="80" required>
+     </div>
+     <div class="rs-campo">
+      <label for="rs-whats">WhatsApp com DDD</label>
+      <input id="rs-whats" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="(11) 91234-5678" maxlength="20" required>
+     </div>
+     <div class="rs-campo">
+      <label for="rs-data">Data de retirada no salão</label>
+      <input id="rs-data" name="dataRetirada" type="date" required aria-describedby="rs-data-dica">
+      <p id="rs-data-dica" class="rs-dica">De segunda a sábado, a partir de 23/10.</p>
+     </div>
+     <div class="rs-hp" aria-hidden="true"><label for="rs-site">Não preencha este campo</label><input id="rs-site" name="site" type="text" tabindex="-1" autocomplete="off"></div>
+     <p id="rs-erro" class="rs-erro" role="alert" aria-live="assertive"></p>
+     <button id="rs-enviar" type="submit" class="rs-botao">Confirmar reserva</button>
+     <p class="rs-nota">Sem pagamento agora: você paga na retirada, no salão (Pix, débito ou até 3x sem juros).</p>
+    </form>
+    <div id="rs-ok" class="rs-ok" tabindex="-1" hidden>
+     <p class="rs-ok-icone" aria-hidden="true">✨</p>
+     <p class="rs-ok-titulo">Reserva confirmada!</p>
+     <p>Você vai receber a confirmação no WhatsApp.</p>
+     <p id="rs-ok-detalhe" class="rs-ok-detalhe"></p>
+     <button type="button" class="rs-botao" data-fechar>Ver mais peças</button>
+    </div>
+   </div>
+  </div>
+
   <style>
    .chip { flex: 0 0 auto; white-space: nowrap; padding: .45rem 1rem; border-radius: 9999px; font-family: "Montserrat", sans-serif; font-size: .8rem; letter-spacing: .03em; border: 1px solid #D1BFA7; background: #fff; color: #333; transition: all .15s; }
    .chip:hover { border-color: #B46342; }
@@ -451,12 +500,63 @@
    .colecao-sub { display:block; font-size:.75rem; color:rgba(0,0,0,.55); margin-top:.15rem; }
    @media (max-width:480px){ .colecao-foto{width:2.5rem;height:2.5rem} .colecao-nome{font-size:.85rem} }
    article.destaque { outline: 3px solid #B46342; outline-offset: 3px; transition: outline-color .6s; }
+   /* Pré-venda */
+   .colecao-pv { border-color:#E8B79E; }
+   .pv-info { background:#FBF5EE; border:1px solid #E8D3BF; border-radius:1rem; padding:.9rem 1rem; }
+   .pv-info[hidden] { display:none; }
+   .pv-restam { text-align:center; font-family:Montserrat,sans-serif; font-size:1rem; color:#8E4A2C; margin-bottom:.5rem; }
+   .pv-restam strong { font-size:1.25rem; }
+   .pv-barra { height:8px; border-radius:9999px; background:#EADBCB; overflow:hidden; margin:0 auto .8rem; max-width:22rem; }
+   .pv-barra span { display:block; height:100%; width:0; background:#B46342; border-radius:9999px; transition:width .6s; }
+   .pv-passos { display:grid; gap:.45rem; font-size:.82rem; color:rgba(0,0,0,.72); }
+   .pv-passos li { display:flex; gap:.55rem; align-items:flex-start; }
+   .pv-passos b { flex:0 0 1.35rem; height:1.35rem; border-radius:9999px; background:#B46342; color:#fff; font-size:.72rem; display:flex; align-items:center; justify-content:center; }
+   @media (min-width:768px){ .pv-passos { grid-template-columns:repeat(3,1fr); } }
+   .selo { position:absolute; top:.5rem; left:.5rem; z-index:3; font-family:Montserrat,sans-serif; font-size:11px; padding:.12rem .5rem; border-radius:9999px; }
+   .selo-pv { background:#B46342; color:#fff; } .selo-ultimas { background:#C7781F; color:#fff; } .selo-esgotado { background:#6B6B6B; color:#fff; }
+   .pv-resta { font-size:.75rem; color:#A0521F; font-weight:600; }
+   article.pv-esgotado { background:#F5F2EE; }
+   article.pv-esgotado .foto-trilho img { filter:grayscale(1); opacity:.5; }
+   article.pv-esgotado h3, article.pv-esgotado .font-title { opacity:.6; }
+   .btn-reservar { width:100%; display:inline-flex; align-items:center; justify-content:center; padding:.6rem .75rem; min-height:2.5rem; border-radius:9999px; background:#B46342; color:#fff; font-family:Montserrat,sans-serif; font-size:.8rem; letter-spacing:.03em; border:0; cursor:pointer; transition:background .15s; }
+   .btn-reservar:hover { background:#8E4A2C; } .btn-reservar:focus-visible { outline:2px solid #8E4A2C; outline-offset:2px; }
+   .btn-reservar:disabled { background:#C9C3BC; color:#fff; cursor:not-allowed; }
+   .pv-falha { grid-column:1/-1; text-align:center; padding:3rem 1rem; color:rgba(0,0,0,.65); }
+   .pv-falha a { display:inline-flex; margin-top:1rem; padding:.65rem 1.25rem; border-radius:9999px; background:#B46342; color:#fff; font-family:Montserrat,sans-serif; font-size:.85rem; }
+   #reserva { position:fixed; inset:0; z-index:60; display:none; background:rgba(0,0,0,.55); align-items:flex-end; justify-content:center; }
+   #reserva.aberto { display:flex; }
+   .rs-painel { background:#fff; width:100%; max-width:28rem; max-height:92vh; overflow-y:auto; border-radius:1.25rem 1.25rem 0 0; padding:1.1rem 1rem calc(1.1rem + env(safe-area-inset-bottom)); box-shadow:0 -10px 30px rgba(0,0,0,.2); }
+   @media (min-width:640px){ #reserva { align-items:center; padding:1rem; } .rs-painel { border-radius:1.25rem; padding:1.5rem; } }
+   .rs-topo { display:flex; align-items:flex-start; justify-content:space-between; gap:.75rem; margin-bottom:.75rem; }
+   .rs-fechar { width:2.25rem; height:2.25rem; flex:0 0 auto; border-radius:9999px; border:1px solid #E6D9C8; background:#fff; font-size:1.4rem; line-height:1; color:#8E4A2C; cursor:pointer; }
+   .rs-fechar:focus-visible { outline:2px solid #B46342; outline-offset:2px; }
+   .rs-peca { display:flex; gap:.75rem; align-items:center; background:#FBF5EE; border-radius:.9rem; padding:.6rem; margin-bottom:1rem; }
+   .rs-peca img { width:4rem; height:4rem; object-fit:contain; background:#fff; border-radius:.6rem; flex-shrink:0; }
+   .rs-peca-nome { font-family:Montserrat,sans-serif; font-size:.88rem; line-height:1.3; }
+   .rs-peca-preco { font-size:.8rem; color:#8E4A2C; margin-top:.15rem; }
+   .rs-campo { margin-bottom:.85rem; }
+   .rs-campo label { display:block; font-family:Montserrat,sans-serif; font-size:.82rem; color:rgba(0,0,0,.75); margin-bottom:.3rem; }
+   .rs-campo input { width:100%; font-size:16px; padding:.7rem .85rem; border:1px solid #D1BFA7; border-radius:.75rem; background:#fff; color:#222; min-height:2.9rem; }
+   .rs-campo input:focus { outline:none; border-color:#B46342; box-shadow:0 0 0 3px rgba(180,99,66,.18); }
+   .rs-campo input[aria-invalid="true"] { border-color:#B3261E; }
+   .rs-dica { font-size:.75rem; color:rgba(0,0,0,.55); margin-top:.3rem; }
+   .rs-hp { position:absolute; left:-10000px; top:auto; width:1px; height:1px; overflow:hidden; }
+   .rs-erro { color:#B3261E; font-size:.85rem; min-height:1.1rem; margin-bottom:.6rem; }
+   .rs-erro:empty { min-height:0; margin:0; }
+   .rs-botao { width:100%; padding:.85rem 1rem; border-radius:9999px; background:#B46342; color:#fff; border:0; font-family:Montserrat,sans-serif; font-size:.95rem; letter-spacing:.03em; cursor:pointer; margin-top:.25rem; }
+   .rs-botao:hover { background:#8E4A2C; } .rs-botao:disabled { opacity:.65; cursor:progress; }
+   .rs-botao:focus-visible { outline:2px solid #8E4A2C; outline-offset:2px; }
+   .rs-nota { font-size:.75rem; color:rgba(0,0,0,.55); text-align:center; margin-top:.6rem; }
+   .rs-ok { text-align:center; padding:.5rem 0; } .rs-ok:focus { outline:none; }
+   .rs-ok-icone { font-size:2rem; } .rs-ok-titulo { font-family:Montserrat,sans-serif; font-size:1.2rem; font-weight:600; color:#2F6B4F; margin:.25rem 0; }
+   .rs-ok-detalhe { font-size:.85rem; color:rgba(0,0,0,.65); margin:.6rem 0 1rem; }
   </style>
 
   <script>
   (function () {
     var API = "https://app.manicuraexpressnails.com/api/vitrine/semijoias";
     var CATALOGO = "semijoias/catalogo.json"; // snapshot publicado junto (fotos extras + reserva se a API cair)
+    var API_PV = "https://app.manicuraexpressnails.com/api/vitrine/pre-venda"; // pré-venda (orçamento Gazin 52200): API própria, fora das outras coleções
     var WHATS = "5511959963541";
     var ORDEM = ["Brincos", "Anéis", "Colares & Chokers", "Pulseiras & Braceletes", "Pingentes", "Conjuntos", "Piercings", "Acessórios"];
     var brl = function (v) { return v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" }); };
@@ -470,11 +570,12 @@
       return fetch(url, { cache: "no-store" }).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); });
     }
 
-    Promise.allSettled([getJSON(API), getJSON(CATALOGO)]).then(function (res) {
+    Promise.allSettled([getJSON(API), getJSON(CATALOGO), getJSON(API_PV)]).then(function (res) {
       var ao_vivo = res[0].status === "fulfilled" ? res[0].value.pecas : null;
       var snap = res[1].status === "fulfilled" ? res[1].value : [];
-      var porCodigo = {};
+      var porCodigo = estado.porCodigo = {};
       snap.forEach(function (p) { porCodigo[p.codigo] = p; });
+      estado.pv = res[2].status === "fulfilled" && res[2].value && Array.isArray(res[2].value.pecas) ? res[2].value : null;
 
       if (ao_vivo) {
         estado.pecas = ao_vivo.map(function (p) {
@@ -491,17 +592,19 @@
       }
       // Coleções separadas (Lançamentos × Presentes × Infantil): ?colecao=presentes|infantil abre a coleção; sem parâmetro abre Lançamentos; #p-<código> abre a coleção da peça.
       // Links antigos (?colecao=set26 / out26, de PDFs já enviados) caem em Lançamentos.
-      estado.todas = estado.pecas;
+      // Pré-venda: ?colecao=pre-venda abre a aba; sem parâmetro ela é a padrão enquanto restar peça; #pv-<código> abre a peça da pré-venda.
+      estado.todas = estado.pecas.concat(pecasPV(estado.pv));
+      estado.padrao = pvAberta() ? "pre-venda" : "lancamentos";
       var q = new URLSearchParams(location.search);
-      var doHash = /^#p-/.test(location.hash) && estado.todas.filter(function (p) { return "#p-" + p.codigo === location.hash; })[0];
+      var doHash = /^#pv?-/.test(location.hash) && estado.todas.filter(function (p) { return "#" + (p.pv ? "pv-" : "p-") + p.codigo === location.hash; })[0];
       var pedida = { set26: "lancamentos", out26: "lancamentos" }[q.get("colecao")] || q.get("colecao");
-      iniciarColecoes(doHash ? doHash.colecao : (COLECOES.indexOf(pedida) >= 0 ? pedida : COLECOES[0]));
+      iniciarColecoes(doHash ? doHash.colecao : (COLECOES.indexOf(pedida) >= 0 ? pedida : estado.padrao));
       // Links de fora (PDF, WhatsApp): ?cat=Anéis abre a categoria; #p-162239 rola até a peça e destaca.
       var cat = q.get("cat");
       if (cat && estado.pecas.some(function (p) { return p.categoria === cat; })) estado.categoria = cat;
       montarFiltros();
       render();
-      var alvo = /^#p-\d+$/.test(location.hash) && document.querySelector(location.hash);
+      var alvo = /^#pv?-\d+$/.test(location.hash) && document.querySelector(location.hash);
       if (alvo) {
         // o Tailwind (CDN) aplica os estilos dos cards um instante depois do render e o layout muda:
         // rola de novo depois que assenta, senão a peça fica fora da tela.
@@ -512,9 +615,10 @@
       }
     });
 
-    var COLECOES = ["lancamentos", "presentes", "infantil"]; // ordem dos cartões; a primeira é a que abre por padrão
+    var COLECOES = ["pre-venda", "lancamentos", "presentes", "infantil"]; // ordem dos cartões; padrão = pré-venda (se restar peça) senão lançamentos
     function chaveColecao(nome) { return /infantil/i.test(nome || "") ? "infantil" : /presente/i.test(nome || "") ? "presentes" : "lancamentos"; }
     var TEXTO_COL = {
+      "pre-venda": { titulo: "Pré-venda Gift Moment", texto: "Só {total} peças chegando — reserve a sua antes que acabe. Retirada a partir de {data}, pagamento na retirada." },
       lancamentos: { titulo: "Lançamentos Gift Moment", texto: "Brincos, anéis, colares e pulseiras escolhidos a dedo, com banho de alta qualidade e o toque de elegância que combina com unhas bem cuidadas." },
       presentes: { titulo: "Presentes Gift Moment", texto: "Semijoias prontas para presentear: aniversariantes do mês, quem cuida de você e quem merece ser lembrada. Embalamos para presente no salão." },
       infantil: { titulo: "Gift Moment Infantil", texto: "Brincos, colares, pulseiras e conjuntos delicados para os pequenos, com banho de ouro 18K ou ródio branco — presentes que ficam na memória." }
@@ -524,6 +628,7 @@
       COLECOES.forEach(function (c) {
         var ps = estado.todas.filter(function (p) { return p.colecao === c; });
         var btn = box.querySelector('[data-col="' + c + '"]');
+        if (c === "pre-venda") { btn.hidden = !(ps.length || !estado.pv); if (!btn.hidden) presentes++; textoCartaoPV(); return; } // API da pré-venda fora: a aba fica, com o WhatsApp
         btn.hidden = !ps.length; if (ps.length) presentes++;
         var nd = ps.filter(function (p) { return p.status === "disponivel"; }).length;
         var semEstoque = ps.some(function (p) { return p.status === "consultar"; }); // API fora do ar: não afirma disponibilidade
@@ -531,7 +636,7 @@
       });
       box.classList.toggle("hidden", presentes < 2); // só uma coleção no ar: a página fica como antes
       box.onclick = function (e) { var b = e.target.closest("[data-col]"); if (b) trocarColecao(b.dataset.col, false); };
-      if (!estado.todas.some(function (p) { return p.colecao === inicial; })) inicial = COLECOES.filter(function (c) { return estado.todas.some(function (p) { return p.colecao === c; }); })[0] || "lancamentos";
+      if (!estado.todas.some(function (p) { return p.colecao === inicial; }) && !(inicial === "pre-venda" && !box.querySelector('[data-col="pre-venda"]').hidden)) inicial = COLECOES.filter(function (c) { return estado.todas.some(function (p) { return p.colecao === c; }); })[0] || "lancamentos";
       trocarColecao(inicial, true);
     }
     function trocarColecao(c, inicio) {
@@ -541,10 +646,59 @@
       document.querySelectorAll("#colecoes [data-col]").forEach(function (b) { b.setAttribute("aria-selected", b.dataset.col === c); });
       if (!document.getElementById("colecoes").classList.contains("hidden")) {
         document.querySelector("main h1").textContent = TEXTO_COL[c].titulo;
-        document.querySelector("main header p").textContent = TEXTO_COL[c].texto;
+        document.querySelector("main header p").textContent = TEXTO_COL[c].texto
+          .replace("{total}", estado.pv && estado.pv.total ? estado.pv.total : 52).replace("{data}", dataBR(retiradaMin()).slice(0, 5));
       }
-      document.getElementById("so-disponiveis").closest("div").style.display = c === "infantil" ? "none" : "";
-      if (!inicio) { history.replaceState(null, "", c === COLECOES[0] ? location.pathname : "?colecao=" + c); montarFiltros(); render(); }
+      var pv = c === "pre-venda";
+      document.getElementById("so-disponiveis").closest("div").style.display = c === "infantil" || pv ? "none" : "";
+      document.getElementById("filtros").style.display = pv && !estado.pv ? "none" : "";
+      document.getElementById("busca").closest("div").style.display = pv && !estado.pv ? "none" : "";
+      var aviso = document.getElementById("aviso"); // aviso de estoque das outras coleções não vale para a pré-venda
+      if (aviso.textContent) aviso.classList.toggle("hidden", pv);
+      infoPV();
+      if (!inicio) { history.replaceState(null, "", c === estado.padrao ? location.pathname : "?colecao=" + c); montarFiltros(); render(); }
+    }
+
+    // ---------- Pré-venda ----------
+    function pvAberta() { return !!(estado.pv && estado.pv.restantes > 0 && estado.pv.pecas.length); }
+    function retiradaMin() { return estado.pv && /^\d{4}-\d{2}-\d{2}$/.test(estado.pv.retiradaMin) ? estado.pv.retiradaMin : "2026-10-23"; }
+    function dataBR(iso) { var d = String(iso).split("-"); return d[2] + "/" + d[1] + "/" + d[0]; }
+    function isoLocal(d) { return d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2); }
+    function pecasPV(pv) {
+      if (!pv) return [];
+      return pv.pecas.map(function (p) {
+        var s = estado.porCodigo[p.codigo] || {};
+        var restantes = Number(p.restantes) || 0;
+        return { pv: true, colecao: "pre-venda", codigo: String(p.codigo), nome: p.nome, categoria: p.categoria,
+                 preco: Number(p.preco) || 0, parcela3x: Number(p.parcela3x) || (Number(p.preco) || 0) / 3,
+                 restantes: restantes, qtd: Number(p.qtd) || 0,
+                 status: p.status || (restantes > 1 ? "disponivel" : restantes === 1 ? "ultimas" : "esgotado"),
+                 fotos: p.foto ? [p.foto] : (s.fotos || []) };
+      });
+    }
+    function textoCartaoPV() {
+      var el = document.querySelector('[data-n="pre-venda"]');
+      el.textContent = !estado.pv ? "Reserve pelo WhatsApp" : estado.pv.restantes > 0 ? "Restam " + estado.pv.restantes + " de " + estado.pv.total : "Esgotada";
+    }
+    function infoPV() {
+      var box = document.getElementById("pv-info");
+      box.hidden = !(estado.colecao === "pre-venda" && estado.pv);
+      if (box.hidden) return;
+      var t = Number(estado.pv.total) || 0, r = Math.max(0, Number(estado.pv.restantes) || 0);
+      document.getElementById("pv-restam").innerHTML = r > 0
+        ? "Restam <strong>" + r + "</strong> de " + t + " peças" + (t - r > 0 ? " · " + (t - r) + " já reservadas" : "")
+        : "<strong>Todas as " + t + " peças foram reservadas!</strong>";
+      document.getElementById("pv-barra").style.width = (t ? Math.round((t - r) / t * 100) : 0) + "%";
+      document.getElementById("pv-a-partir").textContent = "a partir de " + dataBR(retiradaMin()).slice(0, 5);
+    }
+    function atualizarPV() { // depois de reservar (ou de esgotar): relê a API e redesenha só a pré-venda
+      return getJSON(API_PV).then(function (pv) {
+        if (!pv || !Array.isArray(pv.pecas)) return;
+        estado.pv = pv;
+        estado.todas = estado.todas.filter(function (p) { return !p.pv; }).concat(pecasPV(pv));
+        textoCartaoPV();
+        if (estado.colecao === "pre-venda") { estado.pecas = estado.todas.filter(function (p) { return p.pv; }); infoPV(); render(); }
+      }).catch(function () {});
     }
 
     function montarFiltros() {
@@ -566,14 +720,18 @@
 
     function card(p) {
       var msg = "Olá! Tenho interesse na semijoia " + p.nome + " (cód. " + p.codigo + ") que vi no catálogo Gift Moment.";
-      var selo = p.status === "disponivel"
+      var selo = p.pv
+        ? (p.status === "esgotado" ? '<span class="selo selo-esgotado">Esgotado</span>'
+          : p.status === "ultimas" ? '<span class="selo selo-ultimas">Últimas unidades</span>'
+          : '<span class="selo selo-pv">Pré-venda</span>')
+        : p.status === "disponivel"
         ? '<span class="absolute top-2 left-2 text-[11px] font-subtitle px-2 py-0.5 rounded-full bg-[#2F6B4F] text-white">Disponível</span>'
         : p.status === "sob_encomenda"
         ? '<span class="absolute top-2 left-2 text-[11px] font-subtitle px-2 py-0.5 rounded-full bg-[#D1BFA7] text-black">Sob encomenda</span>'
         : "";
       var fotos = p.fotos.length
         ? '<div class="foto-trilho">' + p.fotos.map(function (f, i) {
-            return '<img loading="lazy" src="semijoias/img/' + esc(f) + '" alt="' + esc(p.nome) + (i ? " — foto " + (i + 1) : "") + '">';
+            return '<img loading="lazy" src="' + esc(/^(https?:)?\/\//.test(f) || f.charAt(0) === "/" ? f : "semijoias/img/" + f) + '" alt="' + esc(p.nome) + (i ? " — foto " + (i + 1) : "") + '">';
           }).join("") + "</div>" +
           (p.fotos.length > 1
             ? '<button type="button" class="seta esq" data-dir="-1" aria-label="Foto anterior">‹</button>' +
@@ -584,29 +742,41 @@
               }).join("") + "</div>"
             : "")
         : '<div class="h-full flex flex-col items-center justify-center text-center text-black/40 text-xs font-subtitle gap-1"><span class="text-2xl">✨</span>Foto em breve</div>';
-      return '<article id="p-' + esc(p.codigo) + '" class="bg-white rounded-2xl border border-[#D1BFA7]/50 overflow-hidden flex flex-col">' +
+      var acao = p.pv
+        ? (p.status === "esgotado"
+            ? '<p class="pv-resta" style="color:#6B6B6B">Reservada por outra cliente</p><span class="mt-auto pt-3"><button type="button" class="btn-reservar" disabled>Esgotado</button></span>'
+            : (p.restantes > 0 ? '<p class="pv-resta">' + (p.qtd === 1 ? "Peça única" : p.restantes === 1 ? "Resta 1 unidade" : "Restam " + p.restantes + " unidades") + "</p>" : "") +
+              '<span class="mt-auto pt-3"><button type="button" class="btn-reservar" data-reservar="' + esc(p.codigo) + '" aria-label="Reservar ' + esc(p.nome) + '">Reservar</button></span>')
+        : '<a href="https://wa.me/' + WHATS + "?text=" + encodeURIComponent(msg) + '" target="_blank" rel="noopener noreferrer" ' +
+            'class="mt-auto pt-3"><span class="w-full inline-flex items-center justify-center px-3 py-2 rounded-full bg-[#B46342] text-white text-xs font-subtitle tracking-wide hover:bg-[#8E4A2C] transition-colors">' +
+            (p.status === "sob_encomenda" ? "Encomendar" : "Quero esta peça") + "</span></a>";
+      return '<article id="' + (p.pv ? "pv-" : "p-") + esc(p.codigo) + '" class="bg-white rounded-2xl border border-[#D1BFA7]/50 overflow-hidden flex flex-col' + (p.pv && p.status === "esgotado" ? " pv-esgotado" : "") + '">' +
         '<div class="card-foto relative bg-white">' + fotos + selo + "</div>" +
         '<div class="p-3 md:p-4 flex flex-col gap-1 flex-1">' +
           '<h3 class="font-subtitle text-sm leading-snug">' + esc(p.nome) + "</h3>" +
           '<p class="text-[11px] text-black/40">cód. ' + esc(p.codigo) + "</p>" +
           '<p class="mt-1 font-title text-lg text-[#8E4A2C]">' + brl(p.preco) + "</p>" +
           '<p class="text-xs text-black/60">ou 3x de ' + brl(p.parcela3x) + " sem juros no cartão</p>" +
-          '<a href="https://wa.me/' + WHATS + "?text=" + encodeURIComponent(msg) + '" target="_blank" rel="noopener noreferrer" ' +
-            'class="mt-auto pt-3"><span class="w-full inline-flex items-center justify-center px-3 py-2 rounded-full bg-[#B46342] text-white text-xs font-subtitle tracking-wide hover:bg-[#8E4A2C] transition-colors">' +
-            (p.status === "sob_encomenda" ? "Encomendar" : "Quero esta peça") + "</span></a>" +
+          acao +
         "</div></article>";
     }
 
     function render() {
+      if (estado.colecao === "pre-venda" && !estado.pv) { // API da pré-venda fora do ar: não quebra a página, manda para o WhatsApp
+        grade.innerHTML = '<div class="pv-falha"><p class="font-subtitle text-base text-black/80">A lista da pré-venda não carregou agora.</p>' +
+          '<p class="text-sm mt-1">Chame a gente no WhatsApp que reservamos a sua peça por lá.</p>' +
+          '<a href="https://wa.me/' + WHATS + "?text=" + encodeURIComponent("Olá! Quero reservar uma peça da pré-venda Gift Moment.") + '" target="_blank" rel="noopener noreferrer">Reservar pelo WhatsApp</a></div>';
+        return;
+      }
       var lista = estado.pecas.filter(function (p) {
         var b = estado.busca;
         var casa = !b || norm(p.codigo).indexOf(b) !== -1 || norm(p.nome).indexOf(b) !== -1;
-        return casa && (b || estado.categoria === "Todas" || p.categoria === estado.categoria) && (!estado.soDisponiveis || p.status === "disponivel");
+        return casa && (b || estado.categoria === "Todas" || p.categoria === estado.categoria) && (!estado.soDisponiveis || p.pv || p.status === "disponivel");
       });
       lista.sort(function (a, b) {
         var ca = ORDEM.indexOf(a.categoria), cb = ORDEM.indexOf(b.categoria);
         if (ca !== cb) return ca - cb;
-        var da = a.status === "sob_encomenda" ? 1 : 0, db = b.status === "sob_encomenda" ? 1 : 0;
+        var da = a.status === "sob_encomenda" || a.status === "esgotado" ? 1 : 0, db = b.status === "sob_encomenda" || b.status === "esgotado" ? 1 : 0;
         return da - db || a.preco - b.preco;
       });
       grade.innerHTML = lista.length ? lista.map(card).join("")
@@ -652,6 +822,8 @@
       }, 250);
     }, { passive: true });
     grade.addEventListener("click", function (e) {
+      var rb = e.target.closest("[data-reservar]");
+      if (rb) { abrirReserva(rb.dataset.reservar, rb); return; }
       var seta = e.target.closest(".seta"), ponto = e.target.closest(".ponto");
       if (seta || ponto) {
         var t = (seta || ponto).closest(".card-foto").querySelector(".foto-trilho");
@@ -663,7 +835,106 @@
     });
     function fechar() { zoom.classList.remove("aberto"); }
     zoom.addEventListener("click", function (e) { if (e.target !== zimg) fechar(); });
-    document.addEventListener("keydown", function (e) { if (e.key === "Escape") fechar(); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") { if (rs.classList.contains("aberto")) fecharReserva(); else fechar(); } });
+
+    // ---------- Reserva da pré-venda (sem pagamento; paga na retirada) ----------
+    var rs = document.getElementById("reserva"), rsForm = document.getElementById("rs-form"), rsOk = document.getElementById("rs-ok");
+    var rsNome = document.getElementById("rs-nome"), rsWhats = document.getElementById("rs-whats"), rsData = document.getElementById("rs-data");
+    var rsSite = document.getElementById("rs-site"), rsErro = document.getElementById("rs-erro"), rsEnviar = document.getElementById("rs-enviar");
+    var rsAtual = null, rsVoltar = null;
+    var MSG_REDE = "Não conseguimos enviar agora. Confira a internet e toque em “Confirmar reserva” de novo — ou chame a gente no WhatsApp.";
+    function limitesData() { // mínimo = retiradaMin (ou hoje, se já passou); máximo = retiradaMin + 30 dias (mesma regra da API)
+      var base = new Date(retiradaMin() + "T12:00:00"), max = new Date(base), hoje = new Date();
+      max.setDate(max.getDate() + 30); hoje.setHours(12, 0, 0, 0);
+      return { min: isoLocal(hoje > base ? hoje : base), max: isoLocal(max) };
+    }
+    function marcar(campo, msg) {
+      [rsNome, rsWhats, rsData].forEach(function (c) { c.removeAttribute("aria-invalid"); });
+      if (campo) campo.setAttribute("aria-invalid", "true");
+      rsErro.textContent = msg || "";
+      if (campo) campo.focus();
+      return !msg;
+    }
+    function erroData() {
+      var d = rsData.value;
+      if (!d) return "Escolha a data de retirada.";
+      if (d < rsData.min || d > rsData.max) return "Escolha uma data entre " + dataBR(rsData.min) + " e " + dataBR(rsData.max) + ".";
+      if (new Date(d + "T12:00:00").getDay() === 0) return "Aos domingos o salão não abre — escolha de segunda a sábado.";
+      return "";
+    }
+    function abrirReserva(codigo, origem) {
+      var p = estado.todas.filter(function (x) { return x.pv && x.codigo === codigo; })[0];
+      if (!p || p.status === "esgotado") return;
+      rsAtual = p; rsVoltar = origem;
+      var f = p.fotos[0];
+      document.getElementById("rs-peca").innerHTML =
+        (f ? '<img src="' + esc(/^(https?:)?\/\//.test(f) || f.charAt(0) === "/" ? f : "semijoias/img/" + f) + '" alt="">' : "") +
+        '<div><p class="rs-peca-nome">' + esc(p.nome) + '</p><p class="text-[11px] text-black/40">cód. ' + esc(p.codigo) + "</p>" +
+        '<p class="rs-peca-preco">' + brl(p.preco) + " · ou 3x de " + brl(p.parcela3x) + "</p></div>";
+      var lim = limitesData();
+      rsData.min = lim.min; rsData.max = lim.max;
+      if (rsData.value && (rsData.value < lim.min || rsData.value > lim.max)) rsData.value = "";
+      document.getElementById("rs-data-dica").textContent = "De segunda a sábado, entre " + dataBR(lim.min).slice(0, 5) + " e " + dataBR(lim.max).slice(0, 5) + ".";
+      rsForm.hidden = false; rsOk.hidden = true; marcar(null, "");
+      rsEnviar.disabled = false; rsEnviar.textContent = "Confirmar reserva";
+      rs.classList.add("aberto"); document.documentElement.style.overflow = "hidden";
+      setTimeout(function () { (rsNome.value ? (rsWhats.value ? rsData : rsWhats) : rsNome).focus(); }, 60);
+    }
+    function fecharReserva() {
+      rs.classList.remove("aberto"); document.documentElement.style.overflow = "";
+      // o card pode ter sido redesenhado (reserva feita): devolve o foco ao botão novo da mesma peça
+      var volta = rsVoltar && document.body.contains(rsVoltar) ? rsVoltar : rsAtual && document.querySelector("#pv-" + rsAtual.codigo + " button");
+      if (volta && !volta.disabled) volta.focus(); else if (document.activeElement && rs.contains(document.activeElement)) document.activeElement.blur();
+    }
+    rs.addEventListener("click", function (e) { if (e.target === rs || e.target.closest("[data-fechar]")) fecharReserva(); });
+    rs.addEventListener("keydown", function (e) { // foco preso dentro da janela
+      if (e.key !== "Tab") return;
+      var fs = Array.prototype.filter.call(rs.querySelectorAll("button, input:not([tabindex='-1'])"), function (el) { return el.offsetParent !== null && !el.disabled; });
+      if (!fs.length) return;
+      var a = fs[0], z = fs[fs.length - 1];
+      if (e.shiftKey && document.activeElement === a) { e.preventDefault(); z.focus(); }
+      else if (!e.shiftKey && document.activeElement === z) { e.preventDefault(); a.focus(); }
+    });
+    rsWhats.addEventListener("blur", function () { // formata ao sair do campo: (11) 91234-5678 (no "input" brigaria com o apagar)
+      var d = rsWhats.value.replace(/\D/g, "");
+      if (d.length < 10 || d.length > 11) return;
+      rsWhats.value = d.length > 6 ? "(" + d.slice(0, 2) + ") " + d.slice(2, d.length - 4) + "-" + d.slice(-4) : d.length > 2 ? "(" + d.slice(0, 2) + ") " + d.slice(2) : d;
+    });
+    rsData.addEventListener("change", function () { var m = erroData(); if (m) marcar(rsData, m); else marcar(null, ""); });
+    rsForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (!rsAtual || rsEnviar.disabled) return;
+      var nome = rsNome.value.trim().replace(/\s+/g, " "), fone = rsWhats.value.replace(/\D/g, "");
+      if (norm(nome).replace(/[^a-z]/g, "").length < 3) return marcar(rsNome, "Escreva seu nome completo.");
+      if (fone.length < 10 || fone.length > 13) return marcar(rsWhats, "Confira o WhatsApp: DDD + número, ex.: (11) 91234-5678.");
+      var md = erroData(); if (md) return marcar(rsData, md);
+      marcar(null, "");
+      var dataRetirada = rsData.value, p = rsAtual;
+      if (rsSite.value) { sucesso(p, dataRetirada); return; } // honeypot preenchido = robô: finge que deu certo e não envia
+      var esgotou = false;
+      rsEnviar.disabled = true; rsEnviar.textContent = "Enviando…"; rsForm.setAttribute("aria-busy", "true");
+      // text/plain = requisição "simples" (sem preflight CORS); o corpo continua sendo JSON
+      fetch(API_PV + "/reservar", { method: "POST", headers: { "Content-Type": "text/plain;charset=UTF-8" },
+        body: JSON.stringify({ codigo: p.codigo, nome: nome, whatsapp: fone, dataRetirada: dataRetirada }) })
+        .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { s: r.status, j: j || {} }; }); })
+        .then(function (x) {
+          if (x.s === 201 || (x.s === 200 && x.j.ok)) { sucesso(p, dataRetirada); atualizarPV(); return; }
+          var m = x.j.error || x.j.erro || x.j.message;
+          if (x.s === 409) { esgotou = true; marcar(null, "Ops, essa peça acabou de esgotar. Veja as outras peças da pré-venda."); atualizarPV(); }
+          else if (x.s === 400 || x.s === 422 || x.s === 429) marcar(null, typeof m === "string" && m ? m : "Confira os dados e tente de novo.");
+          else marcar(null, MSG_REDE);
+        })
+        .catch(function () { marcar(null, MSG_REDE); })
+        .then(function () { rsEnviar.disabled = esgotou; rsEnviar.textContent = esgotou ? "Peça esgotada" : "Confirmar reserva"; rsForm.removeAttribute("aria-busy"); });
+    });
+    function sucesso(p, dataRetirada) {
+      rsForm.hidden = true; rsOk.hidden = false; rs.querySelector(".rs-painel").scrollTop = 0;
+      var d = new Date(dataRetirada + "T12:00:00");
+      document.getElementById("rs-ok-detalhe").textContent = p.nome + " — retirada " +
+        d.toLocaleDateString("pt-BR", { weekday: "long", day: "2-digit", month: "2-digit" }) + ", no salão (Anhangabaú, Jundiaí). Pagamento na retirada.";
+      rsOk.focus();
+      try { if (window.gtag) gtag("event", "reserva_pre_venda", { item_id: p.codigo, value: p.preco, currency: "BRL" }); } catch (e) {}
+    }
   })();
   </script>
   <footer class="w-full bg-[#8E4A2C] text-white mt-6">
