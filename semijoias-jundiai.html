@@ -843,9 +843,9 @@
     var rsSite = document.getElementById("rs-site"), rsErro = document.getElementById("rs-erro"), rsEnviar = document.getElementById("rs-enviar");
     var rsAtual = null, rsVoltar = null;
     var MSG_REDE = "Não conseguimos enviar agora. Confira a internet e toque em “Confirmar reserva” de novo — ou chame a gente no WhatsApp.";
-    function limitesData() { // mínimo = retiradaMin (ou hoje, se já passou); máximo = retiradaMin + 30 dias (mesma regra da API)
+    function limitesData() { // mínimo = retiradaMin (ou hoje, se já passou); máximo = retiradaMin + 10 dias (mesma regra da API)
       var base = new Date(retiradaMin() + "T12:00:00"), max = new Date(base), hoje = new Date();
-      max.setDate(max.getDate() + 30); hoje.setHours(12, 0, 0, 0);
+      max.setDate(max.getDate() + 10); hoje.setHours(12, 0, 0, 0);
       return { min: isoLocal(hoje > base ? hoje : base), max: isoLocal(max) };
     }
     function marcar(campo, msg) {
