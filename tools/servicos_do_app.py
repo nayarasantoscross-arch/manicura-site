@@ -14,7 +14,7 @@ O que é regerado (sempre o bloco inteiro, então rodar 2x dá o mesmo resultado
   - servicos-jundiai.html, entre <!-- faq:inicio --> e <!-- faq:fim -->: o FAQ visível; e os JSON-LD
     (hasOfferCatalog do NailSalon + FAQPage) reescritos a partir dos mesmos dados.
   - llms.txt, entre <!-- servicos:inicio --> e <!-- servicos:fim -->.
-  - priceRange literal ("R$ a - R$ b") no JSON-LD de qualquer página: min–max real da vitrine (ignora 0).
+  - priceRange do JSON-LD de qualquer página: sempre "$$" (regra 24/10: nenhum valor em R$ fora da tabela).
 
 Textos de marketing fora dos marcadores NÃO são tocados: o script só os lista como pendências
 (serviços que não estão na vitrine, preços divergentes, duração x slogan).
@@ -397,8 +397,8 @@ def main():
     if gravar(LLMS, t):
         mudou.append(LLMS.name)
 
-    # 3) priceRange literal (R$ ...) em qualquer página
-    fx = faixa(grupos)
+    # 3) priceRange: sempre "$$" — nenhum valor em R$ fora da tabela (Douglas, 24/10/2026)
+    fx = "$$"
     for p in sorted(RAIZ.glob("*.html")):
         h = ler(p)
         h2 = re.sub(r'("priceRange":\s*")R\$[^"]*(")', lambda m: m.group(1) + fx + m.group(2), h)

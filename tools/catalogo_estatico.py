@@ -9,6 +9,7 @@ do catálogo é vendável — pronta entrega ou encomenda). Rodar sempre que sem
 """
 import html, json, re, urllib.parse
 from pathlib import Path
+from PIL import Image
 
 RAIZ = Path(__file__).resolve().parent.parent
 PAGINA = RAIZ / "semijoias-jundiai.html"
@@ -28,11 +29,22 @@ def disponibilidade(p):
     return "PreOrder" if p.get("status") == "sob_encomenda" else "InStock"
 
 
+def dimensoes(arquivo):
+    """largura/altura reais da foto (evita salto de layout); None se o arquivo não existir."""
+    try:
+        with Image.open(RAIZ / "semijoias" / "img" / arquivo) as im:
+            return im.size
+    except OSError:
+        return None
+
+
 def card(p):
     e = lambda s: html.escape(str(s), quote=True)
     msg = f"Olá! Tenho interesse na semijoia {p['nome']} (cód. {p['codigo']}) que vi no catálogo Gift Moment."
     if p["fotos"]:
-        foto = (f'<div class="foto-trilho"><img loading="lazy" src="semijoias/img/{e(p["fotos"][0])}" '
+        dim = dimensoes(p["fotos"][0])
+        wh = f' width="{dim[0]}" height="{dim[1]}"' if dim else ""
+        foto = (f'<div class="foto-trilho"><img loading="lazy" src="semijoias/img/{e(p["fotos"][0])}"{wh} '
                 f'alt="{e(p["nome"])}"></div>')
     else:
         foto = ('<div class="h-full flex flex-col items-center justify-center text-center text-black/40 text-xs '
