@@ -13,7 +13,7 @@ from pathlib import Path
 RAIZ = Path(__file__).resolve().parent.parent
 PAGINA = RAIZ / "semijoias-jundiai.html"
 URL = "https://manicuraexpressnails.com/semijoias-jundiai.html"
-WHATS = "5511959963541"
+WHATS = "5511947426514"
 ORDEM = ["Brincos", "Anéis", "Colares & Chokers", "Pulseiras & Braceletes", "Pingentes", "Conjuntos", "Piercings", "Acessórios"]
 INI, FIM = "<!--catalogo-estatico:inicio-->", "<!--catalogo-estatico:fim-->"
 LD_INI, LD_FIM = "<!--ld-catalogo:inicio-->", "<!--ld-catalogo:fim-->"
