@@ -189,7 +189,7 @@ def perguntas(grupos, duracao, link):
               "Cartão, Pix ou dinheiro. Os preços desta tabela são os mesmos do agendamento online."))
     q.append(("Como agendar um horário?",
               f"Pelo agendamento online em {re.sub(r'^https?://', '', link).rstrip('/')} ou pelo WhatsApp {WHATS}. "
-              "Atendemos de segunda a sexta, das 9h às 12h e das 13h às 19h30, e aos sábados, das 8h às 12h."))
+              "Atendemos de segunda a sexta, das 9h às 19h30, e aos sábados, das 8h às 12h."))
     return q
 
 
