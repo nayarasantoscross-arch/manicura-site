@@ -13,6 +13,7 @@ PAGINAS = {
     "index": ("img/site/OE4gyFL.webp", "Manicure e esmaltação em gel em 30 minutos"),
     "servicos-jundiai": ("img/site/qMzx7Ca.webp", "Esmaltação em gel e alongamento de unhas"),
     "sobre-nayara-jundiai": (NAYARA, "Nayara das Dores Santos, quem cuida das suas unhas"),
+    "politica-de-privacidade": ("img/site/OE4gyFL.webp", "Política de Privacidade: como cuidamos dos seus dados"),
     "contato-jundiai": (NAYARA, "Agende o SEU MOMENTO no Anhangabaú"),
     "manicure-anhangabau-jundiai": ("img/site/sMd54TO.webp", "Manicure no Anhangabaú, em Jundiaí"),
     "gift-moment-jundiai": ("img/site/b9MxCim.webp", "Gift Moment: presentes e vale-presente"),
