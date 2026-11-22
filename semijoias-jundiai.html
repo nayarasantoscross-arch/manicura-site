@@ -155,7 +155,7 @@
   <header class="w-full bg-white shadow-sm">
    <div class="max-w-7xl mx-auto px-4 py-0.5 flex items-center justify-between gap-4">
     <a href="/" class="flex-shrink-0">
-        <img width="960" height="480" src="img/site/kzq2zhs.webp" alt="Manicura Express Nails" class="h-32 sm:h-48 md:h-60 w-auto object-contain">
+        <img width="960" height="480" src="img/site/kzq2zhs.webp" alt="Manicura Express Nails" class="h-32 sm:h-48 md:h-60 w-auto object-contain logo-cab">
     </a>
     <div class="hidden lg:flex items-center gap-4" style="margin-right: 1cm;">
      <nav aria-label="Navegação principal" class="flex gap-4 text-xs font-subtitle whitespace-nowrap">
@@ -211,23 +211,23 @@
 
     <div id="colecoes" class="hidden grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 max-w-4xl mx-auto mb-6" role="tablist" aria-label="Escolha a coleção">
      <button type="button" role="tab" data-col="pre-venda" class="colecao-card colecao-pv" hidden>
-      <img fetchpriority="high" width="1000" height="1000" src="semijoias/img/178176-colar-gravata-bola-franja-lisa-dourado.webp" alt="" class="colecao-foto">
+      <img fetchpriority="high" width="1000" height="1000" src="semijoias/img/178176-colar-gravata-bola-franja-lisa-dourado.webp" alt="Colar Gravata Bola Franja Lisa Dourado — semijoia Gift Moment" class="colecao-foto">
       <span class="colecao-txt"><span class="colecao-nome">Pré-venda</span><span class="colecao-sub" data-n="pre-venda"></span></span>
      </button>
      <button type="button" role="tab" data-col="lancamentos" class="colecao-card">
-      <img fetchpriority="high" width="1000" height="1000" src="semijoias/img/180871-pulseira-elos-cristal-dourado.webp" alt="" class="colecao-foto">
+      <img fetchpriority="high" width="1000" height="1000" src="semijoias/img/180871-pulseira-elos-cristal-dourado.webp" alt="Pulseira Elos Cristal Dourado — semijoia Gift Moment" class="colecao-foto">
       <span class="colecao-txt"><span class="colecao-nome">Lançamentos</span><span class="colecao-sub" data-n="lancamentos"></span></span>
      </button>
      <button type="button" role="tab" data-col="essenciais" class="colecao-card">
-      <img loading="lazy" width="1000" height="1000" src="semijoias/img/101100-choker-bolas-lisas-dourado.webp" alt="" class="colecao-foto">
+      <img loading="lazy" width="1000" height="1000" src="semijoias/img/101100-choker-bolas-lisas-dourado.webp" alt="Choker Bolas Lisas Dourado — semijoia Gift Moment" class="colecao-foto">
       <span class="colecao-txt"><span class="colecao-nome">Essenciais</span><span class="colecao-sub" data-n="essenciais"></span></span>
      </button>
      <button type="button" role="tab" data-col="presentes" class="colecao-card">
-      <img loading="lazy" width="1000" height="1000" src="semijoias/img/160411-brinco-argola-lisa-branco.webp" alt="" class="colecao-foto">
+      <img loading="lazy" width="1000" height="1000" src="semijoias/img/160411-brinco-argola-lisa-branco.webp" alt="Brinco Argola Lisa Ródio Branco — semijoia Gift Moment" class="colecao-foto">
       <span class="colecao-txt"><span class="colecao-nome">Presentes</span><span class="colecao-sub" data-n="presentes"></span></span>
      </button>
      <button type="button" role="tab" data-col="infantil" class="colecao-card">
-      <img loading="lazy" width="500" height="500" src="semijoias/img/159184-brinco-infantil-mickey-liso-dourado.webp" alt="" class="colecao-foto">
+      <img loading="lazy" width="500" height="500" src="semijoias/img/159184-brinco-infantil-mickey-liso-dourado.webp" alt="Brinco Infantil Mickey Liso Dourado — semijoia Gift Moment" class="colecao-foto">
       <span class="colecao-txt"><span class="colecao-nome">Coleção Infantil</span><span class="colecao-sub" data-n="infantil"></span></span>
      </button>
     </div>
@@ -617,7 +617,7 @@
 
   <div id="zoom" class="fixed inset-0 z-50 hidden bg-black/80 items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Foto ampliada">
    <button id="zoom-fechar" class="absolute top-4 right-4 text-white text-3xl leading-none focus:outline-none focus-ring" aria-label="Fechar">×</button>
-   <img id="zoom-img" alt="" class="max-h-[85vh] max-w-full rounded-2xl bg-white">
+   <img id="zoom-img" alt="Foto ampliada — semijoia Gift Moment" class="max-h-[85vh] max-w-full rounded-2xl bg-white">
   </div>
 
   <div id="reserva" role="dialog" aria-modal="true" aria-labelledby="rs-titulo">
@@ -1054,7 +1054,7 @@
       rsAtual = p; rsVoltar = origem;
       var f = p.fotos[0];
       document.getElementById("rs-peca").innerHTML =
-        (f ? '<img src="' + esc(/^(https?:)?\/\//.test(f) || f.charAt(0) === "/" ? f : "semijoias/img/" + f) + '" alt="">' : "") +
+        (f ? '<img src="' + esc(/^(https?:)?\/\//.test(f) || f.charAt(0) === "/" ? f : "semijoias/img/" + f) + '" alt="' + esc(p.nome) + ' — semijoia Gift Moment">' : "") +
         '<div><p class="rs-peca-nome">' + esc(p.nome) + '</p><p class="text-[11px] text-black/40">cód. ' + esc(p.codigo) + "</p>" +
         '<p class="rs-peca-preco">' + brl(p.preco) + " · ou 3x de " + brl(p.parcela3x) + "</p></div>";
       var lim = limitesData();
@@ -1092,7 +1092,7 @@
       if (!rsAtual || rsEnviar.disabled) return;
       var nome = rsNome.value.trim().replace(/\s+/g, " "), fone = rsWhats.value.replace(/\D/g, "");
       if (norm(nome).replace(/[^a-z]/g, "").length < 3) return marcar(rsNome, "Escreva seu nome completo.");
-      if (fone.length < 10 || fone.length > 13) return marcar(rsWhats, "Confira o WhatsApp: DDD + número, ex.: (11) 91234-5678.");
+      if (fone.length < 10 || fone.length > 13) return marcar(rsWhats, "Confira o WhatsApp: DDD + número.");
       var md = erroData(); if (md) return marcar(rsData, md);
       marcar(null, "");
       var dataRetirada = rsData.value, p = rsAtual;

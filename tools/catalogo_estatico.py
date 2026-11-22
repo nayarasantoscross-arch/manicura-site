@@ -45,7 +45,7 @@ def card(p):
         dim = dimensoes(p["fotos"][0])
         wh = f' width="{dim[0]}" height="{dim[1]}"' if dim else ""
         foto = (f'<div class="foto-trilho"><img loading="lazy" src="semijoias/img/{e(p["fotos"][0])}"{wh} '
-                f'alt="{e(p["nome"])}"></div>')
+                f'alt="{e(p["nome"] or "Semijoia Gift Moment")}"></div>')  # nunca alt vazio
     else:
         foto = ('<div class="h-full flex flex-col items-center justify-center text-center text-black/40 text-xs '
                 'font-subtitle gap-1"><span class="text-2xl">✨</span>Foto em breve</div>')
