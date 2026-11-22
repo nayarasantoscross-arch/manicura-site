@@ -357,6 +357,7 @@ def pendencias(grupos, dados):
 # ---------------------------------------------------------------- main
 
 def main():
+    sys.stdout.reconfigure(encoding="utf-8")  # console do Windows (cp1252) quebrava ao listar pendências com emoji
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--arquivo", help="ler a vitrine de um JSON local em vez de baixar")
     ap.add_argument("--duracao", action="store_true", help="mostrar a duração (do bloco de agenda do app)")
