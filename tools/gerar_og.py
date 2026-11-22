@@ -27,6 +27,9 @@ PAGINAS = {
     "alongamento-de-unhas-jundiai": ("img/site/unhas-amendoadas-francesinha-base-rosada-jundiai.webp", "Alongamento de unhas em Jundiaí"),
     "imprensa": ("imprensa/02-ia-luz-somente-nas-unhas-manicura-express-nails-jundiai.jpg", "Primeira cabine de unhas com IA de Jundiaí"),
     "pedicure-jundiai": ("img/site/estudio-manicura-express-nails-panoramica-jundiai.webp", "Pedicure em Jundiaí, no Anhangabaú"),
+    "manicure-jardim-luciana-jundiai": ("img/site/bairros-estudio-vista-entrada-jundiai.webp", "Manicure perto do Jardim Luciana, em Jundiaí"),
+    "manicure-vila-virginia-jundiai": ("img/site/bairros-letreiro-seu-momento-jundiai.webp", "Manicure perto da Vila Virgínia, em Jundiaí"),
+    "manicure-parque-do-colegio-jundiai": ("img/site/bairros-estudio-panoramica-jundiai.webp", "Manicure perto do Parque do Colégio, em Jundiaí"),
 }
 FOCO = {"artigo-cabine-alergia-jundiai": (0.4, 0.72), "sobre-nayara-jundiai": (0.5, 0.35), "contato-jundiai": (0.5, 0.12), "pedicure-jundiai": (0.35, 0.5)}
 
@@ -79,7 +82,15 @@ def cabine():
 
 
 def main():
+    import sys
+    so = sys.argv[1:]  # opcional: gerar só as páginas indicadas (ex.: python tools/gerar_og.py manicure-vila-virginia-jundiai)
     out = R / "img" / "og"; out.mkdir(exist_ok=True)
+    if so:
+        for pag in so:
+            foto, titulo = PAGINAS[pag]
+            cartao(R / foto if isinstance(foto, str) else foto, titulo, FOCO.get(pag, (0.5, 0.5))).save(out / f"{pag}.jpg", quality=86, optimize=True)
+        print("ok:", len(so), "miniaturas em img/og/")
+        return
     for pag, (foto, titulo) in PAGINAS.items():
         cartao(R / foto if isinstance(foto, str) else foto, titulo, FOCO.get(pag, (0.5, 0.5))).save(out / f"{pag}.jpg", quality=86, optimize=True)
     cabine().save(out / "cabine-onail-jundiai.jpg", quality=86, optimize=True)
