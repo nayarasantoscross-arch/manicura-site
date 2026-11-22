@@ -17,8 +17,8 @@ main:focus{outline:none}
 a.wa-fab{position:fixed;right:16px;bottom:16px;z-index:60;min-height:48px;padding:12px 18px;border-radius:9999px;background:#A55737;color:#fff;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,.25);display:inline-flex;align-items:center;text-decoration:none}
 a.wa-fab:hover{background:#8E4A2C}
 @media (max-width:767px){footer.w-full{padding-bottom:72px}}
-a[href*="/agendar"],a[href^="https://wa.me"],a[href^="tel:"]{min-height:44px;display:inline-flex;align-items:center}
-p a.underline[href],li a.underline[href]{min-height:0;display:inline}
-footer a{padding-block:10px;display:inline-block}
+/* toque mínimo de 44px sem mudar o display: :where() tem especificidade 0, então hidden/lg:hidden etc. continuam valendo (22/11: duplicava o Agendar do cabeçalho) */
+:where(a[href*="/agendar"],a[href^="https://wa.me"],a[href^="tel:"]){min-height:44px}
+:where(footer a){padding-block:10px}
 .novidade-faixa{display:block;background:linear-gradient(135deg,#8E4A2C,#A55737);color:#FBF5EE;text-decoration:none;border-radius:14px;padding:14px 20px;margin-bottom:28px;text-align:center;font-weight:600;letter-spacing:.02em}
 @media (max-width:639px){.novidade-faixa{padding:8px 16px;margin-bottom:20px;font-size:.875rem}}
