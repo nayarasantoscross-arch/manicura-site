@@ -15,6 +15,13 @@ O que é regerado (sempre o bloco inteiro, então rodar 2x dá o mesmo resultado
     (hasOfferCatalog do NailSalon + FAQPage) reescritos a partir dos mesmos dados.
   - llms.txt, entre <!-- servicos:inicio --> e <!-- servicos:fim -->.
   - priceRange do JSON-LD de qualquer página: faixa real min–max da vitrine (ignora 0), também onde estiver "$$".
+  - Preço em qualquer página *.html da raiz: todo <span data-preco="NOME EXATO DO SERVIÇO">…</span> tem o conteúdo
+    trocado pelo preço da vitrine (mesma regra do preço_txt). Serviço que não existe na vitrine NÃO é apagado:
+    vira pendência impressa. No JSON-LD dessas páginas, todo Offer/Service cujo "name" (ou itemOffered.name) bata
+    exatamente com um serviço da vitrine e que já tenha "price" recebe o preço no formato "120.00".
+  - FAQ = FAQPage: depois de trocar os spans, toda pergunta do FAQ visível (<h3>pergunta</h3><p>resposta</p>) cuja
+    resposta contenha data-preco tem o acceptedAnswer.text do FAQPage da mesma página reescrito com o texto visível
+    (sem tags, entidades decodificadas). Assim visível e JSON-LD nunca divergem, sem duplicar preço à mão.
 
 Textos de marketing fora dos marcadores NÃO são tocados: o script só os lista como pendências
 (serviços que não estão na vitrine, preços divergentes, duração x slogan).
@@ -299,6 +306,58 @@ def gravar(p, s):
     return False
 
 
+def aplica_precos_paginas(grupos, pendentes):
+    """Spans data-preco + price dos Offer/Service + FAQPage sincronizado com a resposta visível (ver docstring)."""
+    por_nome = {s["nome"].lower(): s for _, itens in grupos for s in itens}
+    mudou = []
+    for p in sorted(RAIZ.glob("*.html")):
+        h = ler(p)
+        eol = eol_de(h)
+
+        def span(m):
+            nome = html.unescape(m.group(2))
+            sv = por_nome.get(nome_limpo(nome).lower())
+            if not sv:
+                pendentes.append(f'[preço no HTML] {p.name} — data-preco="{nome}" não existe na vitrine (não alterado)')
+                return m.group(0)
+            return m.group(1) + e(preco_txt(sv)) + m.group(4)
+        h2 = re.sub(r'(<span data-preco="([^"]+)">)(.*?)(</span>)', span, h, flags=re.S)
+
+        # respostas visíveis com preço → texto do FAQPage
+        sync = {}
+        for m in re.finditer(r"<h3[^>]*>((?:(?!</h3>).)*)</h3>\s*<p[^>]*>((?:(?!</p>).)*?data-preco(?:(?!</p>).)*?)</p>", h2, flags=re.S):
+            q = nome_limpo(html.unescape(re.sub(r"<[^>]+>", "", m.group(1))))
+            sync[q] = nome_limpo(html.unescape(re.sub(r"<[^>]+>", "", m.group(2))))
+
+        def ld(obj):
+            alterou = False
+            def anda(o):
+                nonlocal alterou
+                if isinstance(o, dict):
+                    if o.get("@type") == "Question" and nome_limpo(o.get("name")) in sync:
+                        ans = o.get("acceptedAnswer")
+                        if isinstance(ans, dict) and ans.get("text") != sync[nome_limpo(o["name"])]:
+                            ans["text"] = sync[nome_limpo(o["name"])]
+                            alterou = True
+                    if "price" in o and o.get("@type") in ("Offer", "Service"):
+                        nm = o.get("name") or (o.get("itemOffered") or {}).get("name")
+                        sv = por_nome.get(nome_limpo(nm).lower()) if nm else None
+                        if sv and (sv["preco"] > 0 or sv["preco_max"] > 0) and o["price"] != f"{sv['preco']:.2f}":
+                            o["price"] = f"{sv['preco']:.2f}"
+                            alterou = True
+                    for v in o.values():
+                        anda(v)
+                elif isinstance(o, list):
+                    for v in o:
+                        anda(v)
+            anda(obj)
+            return obj if alterou else None
+        h2 = reescreve_ld(h2, eol, ld)
+        if gravar(p, h2):
+            mudou.append(p.name)
+    return mudou
+
+
 def faixa(grupos):
     ps = [v for _, itens in grupos for s in itens for v in (s["preco"], s["preco_max"]) if v > 0]
     return f"{brl_curto(min(ps))} - {brl_curto(max(ps))}"
@@ -406,11 +465,17 @@ def main():
         if gravar(p, h2) and p.name not in mudou:
             mudou.append(p.name)
 
+    # 4) preços da vitrine em spans data-preco, price do JSON-LD e FAQPage = FAQ visível, em qualquer página
+    pend_extra = []
+    for nome in aplica_precos_paginas(grupos, pend_extra):
+        if nome not in mudou:
+            mudou.append(nome)
+
     n = sum(len(i) for _, i in grupos)
     print(f"ok: {n} serviços em {len(grupos)} categorias; priceRange {fx}; duração {'VISÍVEL' if a.duracao else 'oculta'}")
     print("alterados: " + (", ".join(mudou) if mudou else "nenhum (já estava igual à vitrine)"))
     if not a.sem_pendencias:
-        pend = pendencias(grupos, dados)
+        pend = pend_extra + pendencias(grupos, dados)
         print(f"\npendências ({len(pend)}) — nada disso foi alterado:")
         for x in pend:
             print("  - " + x)

@@ -8,3 +8,17 @@ a[href]:focus-visible,button:not([disabled]):focus-visible{outline:3px solid #8E
 main:focus{outline:none}
 @media (max-width:639px){header .logo-cab{height:5.5rem}}
 @media (max-width:359px){header .logo-cab{height:4rem}}
+@font-face{font-family:"Montserrat";font-style:normal;font-weight:500;font-display:swap;src:url(../fonts/montserrat-500-latin-ext.woff2) format("woff2");unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:"Montserrat";font-style:normal;font-weight:500;font-display:swap;src:url(../fonts/montserrat-500-latin.woff2) format("woff2");unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:"Open Sans";font-style:normal;font-weight:400;font-display:swap;src:url(../fonts/open-sans-400-latin-ext.woff2) format("woff2");unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:"Open Sans";font-style:normal;font-weight:400;font-display:swap;src:url(../fonts/open-sans-400-latin.woff2) format("woff2");unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:"Raleway";font-style:normal;font-weight:700;font-display:swap;src:url(../fonts/raleway-700-latin-ext.woff2) format("woff2");unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:"Raleway";font-style:normal;font-weight:700;font-display:swap;src:url(../fonts/raleway-700-latin.woff2) format("woff2");unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+a.wa-fab{position:fixed;right:16px;bottom:16px;z-index:60;min-height:48px;padding:12px 18px;border-radius:9999px;background:#A55737;color:#fff;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,.25);display:inline-flex;align-items:center;text-decoration:none}
+a.wa-fab:hover{background:#8E4A2C}
+@media (max-width:767px){footer.w-full{padding-bottom:72px}}
+a[href*="/agendar"],a[href^="https://wa.me"],a[href^="tel:"]{min-height:44px;display:inline-flex;align-items:center}
+p a.underline[href],li a.underline[href]{min-height:0;display:inline}
+footer a{padding-block:10px;display:inline-block}
+.novidade-faixa{display:block;background:linear-gradient(135deg,#8E4A2C,#A55737);color:#FBF5EE;text-decoration:none;border-radius:14px;padding:14px 20px;margin-bottom:28px;text-align:center;font-weight:600;letter-spacing:.02em}
+@media (max-width:639px){.novidade-faixa{padding:8px 16px;margin-bottom:20px;font-size:.875rem}}
