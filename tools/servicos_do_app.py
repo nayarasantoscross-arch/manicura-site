@@ -57,7 +57,7 @@ FAQ_GEL = "Manicure Gel UV"  # serviço citado no FAQ de preço/duração
 SUSPEITOS = [(r"\bEsmata", "Esmalta…"), (r"\bConsultar\s+Art", "Consultar Artística → Consultoria Artística?")]
 
 BTN = ('<a href="{link}" target="_blank" rel="noopener" class="inline-block text-center px-5 py-2 rounded-full '
-       'bg-[#B46342] text-white text-xs font-subtitle tracking-wide hover:bg-[#8E4A2C] transition-colors '
+       'bg-[#A55737] text-white text-xs font-subtitle tracking-wide hover:bg-[#8E4A2C] transition-colors '
        'focus:outline-none focus-ring whitespace-nowrap">Agendar</a>')
 e = lambda s: html.escape(str(s), quote=True)
 
@@ -152,14 +152,14 @@ def html_tabela(grupos, duracao, link):
             L.append(f'        <p class="text-sm text-black/70">{e(INTRO[cat])}</p>')
         if cat in PAGINA_CAT:
             href, txt = PAGINA_CAT[cat]
-            L.append(f'        <p class="mt-3"><a href="{href}" style="display:inline-flex;align-items:center;gap:8px;background:#B46342;color:#fff;font-weight:600;padding:12px 20px;border-radius:999px;text-decoration:none;box-shadow:0 4px 14px rgba(180,99,66,.28)">{e(txt)} — clique aqui &rarr;</a></p>')
+            L.append(f'        <p class="mt-3"><a href="{href}" style="display:inline-flex;align-items:center;gap:8px;background:#A55737;color:#fff;font-weight:600;padding:12px 20px;border-radius:999px;text-decoration:none;box-shadow:0 4px 14px rgba(180,99,66,.28)">{e(txt)} — clique aqui &rarr;</a></p>')
         L += ["       </div>", '       <div class="space-y-4">']
         for s in itens:
             desc = f'<p class="text-sm text-black/70">{e(s["descricao"])}</p>' if s["descricao"] else ""
             L += ['        <article class="flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 rounded-2xl bg-[#FBF5EE] border border-[#D1BFA7]/30">',
                   f'         <div class="flex-1"><h3 class="font-subtitle text-base tracking-wide mb-1">{e(s["nome"])}</h3>{desc}</div>',
                   '         <div class="flex flex-wrap items-center gap-x-4 gap-y-3 md:gap-6">',
-                  f'          <div class="text-center"><p class="text-lg font-subtitle text-[#B46342]">{e(preco_txt(s))}</p><p class="text-xs text-black/60">Preço</p></div>']
+                  f'          <div class="text-center"><p class="text-lg font-subtitle text-[#A55737]">{e(preco_txt(s))}</p><p class="text-xs text-black/60">Preço</p></div>']
             if duracao:
                 L.append(f'          <div class="text-center"><p class="text-lg font-subtitle">{dur_txt(s)}</p><p class="text-xs text-black/60">Duração</p></div>')
             L += [f"          {BTN.format(link=e(link))}", "         </div>", "        </article>"]

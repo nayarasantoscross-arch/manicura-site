@@ -26,10 +26,10 @@ def card(m):
     return f'''
       <article class="bg-white rounded-3xl p-6 border border-[#D1BFA7]/50 flex flex-col gap-4">
        <div class="w-full h-64 rounded-2xl overflow-hidden shadow-lg"><a href="{m['slug']}.html"><img src="{e(m['img_card'])}" alt="{e(m['img_alt'])}" loading="lazy" class="w-full h-full object-cover object-center transition-transform duration-300 hover:scale-105"></a></div>
-       <span class="text-[11px] font-subtitle tracking-[0.16em] uppercase text-[#B46342]">{e(m['categoria'])}</span>
-       <h3 class="font-title text-xl tracking-wide"><a href="{m['slug']}.html" class="hover:text-[#B46342] transition-colors">{e(m['titulo_card'])}</a></h3>
+       <span class="text-[11px] font-subtitle tracking-[0.16em] uppercase text-[#A55737]">{e(m['categoria'])}</span>
+       <h3 class="font-title text-xl tracking-wide"><a href="{m['slug']}.html" class="hover:text-[#A55737] transition-colors">{e(m['titulo_card'])}</a></h3>
        <p class="text-sm text-black/80 leading-relaxed">{e(m['resumo_card'])}</p>
-       <a href="{m['slug']}.html" class="mt-auto text-xs font-subtitle text-[#B46342] hover:underline focus:outline-none focus-ring">Ler o artigo →</a>
+       <a href="{m['slug']}.html" class="mt-auto text-xs font-subtitle text-[#A55737] hover:underline focus:outline-none focus-ring">Ler o artigo →</a>
       </article>
 '''
 

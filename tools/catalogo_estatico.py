@@ -57,7 +57,7 @@ def card(p):
             f'<p class="mt-1 font-title text-lg text-[#8E4A2C]">{brl(p["preco"])}</p>'
             f'<p class="text-xs text-black/60">ou 3x de {brl(p["parcela3x"])} sem juros no cartão</p>'
             f'<a href="https://wa.me/{WHATS}?text={urllib.parse.quote(msg)}" target="_blank" rel="noopener noreferrer" class="mt-auto pt-3">'
-            '<span class="w-full inline-flex items-center justify-center px-3 py-2 rounded-full bg-[#B46342] text-white text-xs '
+            '<span class="w-full inline-flex items-center justify-center px-3 py-2 rounded-full bg-[#A55737] text-white text-xs '
             'font-subtitle tracking-wide hover:bg-[#8E4A2C] transition-colors">Quero esta peça</span></a>'
             "</div></article>")
 
