@@ -5,7 +5,7 @@ from PIL import Image, ImageDraw, ImageFont, ImageOps
 
 R = Path(__file__).resolve().parent.parent
 FONTES = Path(r"C:/Users/Usuario/Downloads/Projects/gift-moment-semijoias/fonts")
-TERRA, TERRA_E, NUDE = (180, 99, 66), (142, 74, 44), (251, 245, 238)
+TERRA, TERRA_E, NUDE = (165, 87, 55), (142, 74, 44), (251, 245, 238)
 LOGO = R / "img" / "site" / "kzq2zhs-og.png"  # logo terracota do topo do site
 NAYARA = R / "img" / "nayara-das-dores-santos-manicura-express-768.webp"
 
@@ -76,7 +76,7 @@ def cabine():
     f = fonte("Montserrat[wght].ttf", 34, 650)
     t = "A primeira cabine de unhas com IA de Jundiaí"
     w = d.textlength(t, font=f)
-    d.rounded_rectangle((36, 34, 36 + w + 56, 34 + 70), radius=35, fill=(180, 99, 66, 235))
+    d.rounded_rectangle((36, 34, 36 + w + 56, 34 + 70), radius=35, fill=(165, 87, 55, 235))
     d.text((64, 50), t, font=f, fill=(255, 255, 255))
     return base
 
