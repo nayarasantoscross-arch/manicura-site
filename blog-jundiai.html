@@ -30,6 +30,9 @@
   <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="stylesheet" href="css/site.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://www.googletagmanager.com">
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@700&amp;family=Montserrat:wght@500&amp;family=Open+Sans:wght@400&amp;display=swap" rel="stylesheet">
       <meta name="google-site-verification" content="OuQlrrmFdHAyjkGM6Mpp0yp-YPOYWXvmBjs663ILffw" />
 <!-- Google tag (gtag.js) -->
@@ -147,14 +150,15 @@
   </script>
 </head>
  <body class="w-full h-full bg-[#FBF5EE] text-black font-body">
+<a href="#conteudo" class="skip-link">Pular para o conteúdo</a>
   <header class="w-full bg-white shadow-sm">
    <div class="max-w-7xl mx-auto px-4 py-0.5 flex items-center justify-between gap-4">
-    <a href="index.html" class="flex-shrink-0">
+    <a href="/" class="flex-shrink-0">
         <img width="960" height="480" src="img/site/kzq2zhs.webp" alt="Manicura Express Nails" class="h-32 sm:h-48 md:h-60 w-auto object-contain">
     </a>
     <div class="hidden lg:flex items-center gap-4" style="margin-right: 1cm;">
      <nav aria-label="Navegação principal" class="flex gap-4 text-xs font-subtitle whitespace-nowrap">
-        <a href="index.html" class="text-black/70 hover:text-black transition-colors focus:outline-none whitespace-nowrap uppercase">INÍCIO</a>
+        <a href="/" class="text-black/70 hover:text-black transition-colors focus:outline-none whitespace-nowrap uppercase">INÍCIO</a>
         <a href="servicos-jundiai.html" class="text-black/70 hover:text-black transition-colors focus:outline-none whitespace-nowrap uppercase">SERVIÇOS</a>
         <a href="cabine-onail-jundiai.html" class="text-black/70 hover:text-black transition-colors focus:outline-none whitespace-nowrap uppercase" style="color:#B46342;font-weight:700">CABINE COM IA</a>
         <a href="reflexologia-shiatsu-jundiai.html" class="text-black/70 hover:text-black transition-colors focus:outline-none whitespace-nowrap uppercase">SEU MOMENTO</a>
@@ -164,19 +168,20 @@
         <a href="sobre-nayara-jundiai.html" class="text-black/70 hover:text-black transition-colors focus:outline-none whitespace-nowrap uppercase">SOBRE</a>
         <a href="contato-jundiai.html" class="text-black/70 hover:text-black transition-colors focus:outline-none whitespace-nowrap uppercase">CONTATO</a>
      </nav>
-     <a href="https://manicuraexpressnails.com/agendar" target="_blank" rel="noopener" class="inline-flex items-center justify-center px-4 py-2 rounded-full bg-[#B46342] text-white text-xs font-subtitle tracking-wide hover:bg-[#8E4A2C] transition-colors focus:outline-none focus-ring flex-shrink-0">
+     <a href="https://manicuraexpressnails.com/agendar/" target="_blank" rel="noopener" class="inline-flex items-center justify-center px-4 py-2 rounded-full bg-[#B46342] text-white text-xs font-subtitle tracking-wide hover:bg-[#8E4A2C] transition-colors focus:outline-none focus-ring flex-shrink-0">
         <span>Agende SEU MOMENTO</span>
      </a>
     </div>
-    <div class="lg:hidden ml-auto">
-        <button id="mobile-menu-toggle" class="p-2 focus:outline-none focus-ring" aria-label="Abrir menu">
+    <a href="https://manicuraexpressnails.com/agendar/" target="_blank" rel="noopener" id="header-agendar-mobile" class="lg:hidden ml-auto inline-flex items-center justify-center px-4 py-2 rounded-full bg-[#B46342] text-white text-xs font-subtitle tracking-wide hover:bg-[#8E4A2C] transition-colors focus:outline-none focus-ring flex-shrink-0" style="min-height:44px">Agendar</a>
+    <div class="lg:hidden">
+        <button id="mobile-menu-toggle" class="p-2 focus:outline-none focus-ring" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-menu">
             <span class="block w-5 h-0.5 bg-black mb-1"></span><span class="block w-5 h-0.5 bg-black mb-1"></span><span class="block w-5 h-0.5 bg-black"></span>
         </button>
     </div>
    </div>
    <div id="mobile-menu" class="lg:hidden hidden border-t border-black/5 bg-white">
-    <nav class="max-w-6xl mx-auto px-6 py-4 flex flex-col gap-3 text-sm font-subtitle">
-        <a href="index.html" class="text-left text-black/80 hover:text-black focus:outline-none uppercase">INÍCIO</a>
+    <nav aria-label="Navegação mobile" class="max-w-6xl mx-auto px-6 py-4 flex flex-col gap-3 text-sm font-subtitle">
+        <a href="/" class="text-left text-black/80 hover:text-black focus:outline-none uppercase">INÍCIO</a>
         <a href="servicos-jundiai.html" class="text-left text-black/80 hover:text-black focus:outline-none uppercase">SERVIÇOS</a>
         <a href="cabine-onail-jundiai.html" class="text-left text-black/80 hover:text-black focus:outline-none uppercase" style="color:#B46342;font-weight:700">CABINE COM IA</a>
         <a href="reflexologia-shiatsu-jundiai.html" class="text-left text-black/80 hover:text-black focus:outline-none uppercase">SEU MOMENTO</a>
@@ -185,13 +190,13 @@
         <a href="blog-jundiai.html" class="text-left text-black font-bold hover:text-black focus:outline-none uppercase">BLOG</a>
         <a href="sobre-nayara-jundiai.html" class="text-left text-black/80 hover:text-black focus:outline-none uppercase">SOBRE</a>
         <a href="contato-jundiai.html" class="text-left text-black/80 hover:text-black focus:outline-none uppercase">CONTATO</a>
-        <a href="https://manicuraexpressnails.com/agendar" target="_blank" rel="noopener" class="mt-2 inline-flex items-center justify-center px-4 py-2 rounded-full bg-[#B46342] text-white text-sm font-subtitle tracking-wide hover:bg-[#8E4A2C] transition-colors focus:outline-none">
+        <a href="https://manicuraexpressnails.com/agendar/" target="_blank" rel="noopener" class="mt-2 inline-flex items-center justify-center px-4 py-2 rounded-full bg-[#B46342] text-white text-sm font-subtitle tracking-wide hover:bg-[#8E4A2C] transition-colors focus:outline-none">
             <span>Agendar Online</span>
         </a>
     </nav>
    </div>
 </header>
-  <main class="w-full min-h-full">
+  <main id="conteudo" tabindex="-1" class="w-full min-h-full">
    <div class="max-w-6xl mx-auto px-6 py-10 md:py-14">
     <section id="page-blog">
      <header class="mb-10 text-center">
@@ -271,7 +276,7 @@
   <footer class="w-full bg-[#8E4A2C] text-white mt-6">
    <div class="max-w-6xl mx-auto px-6 py-6 grid md:grid-cols-3 gap-10">
     <section aria-label="Sobre Manicura Express Nails" class="space-y-3 text-center flex flex-col justify-start">
-     <h2 class="font-subtitle text-base tracking-[0.2em] uppercase font-bold text-white mb-1">SEU MOMENTO</h2>
+     <p class="font-subtitle text-base tracking-[0.2em] uppercase font-bold text-white mb-1">SEU MOMENTO</p>
      <p class="text-sm text-white leading-relaxed max-w-xs mx-auto">Onde cada detalhe é pensado para você pausar, respirar e se reconectar com sua melhor versão.</p>
 <div class="pt-2">
     <p class="text-xs text-white/80 font-subtitle tracking-wide mb-3">30 minutos que transformam seu dia</p>
@@ -284,7 +289,7 @@
 </div>
     </section>
     <section aria-labelledby="footer-contato-title" class="space-y-3 text-center flex flex-col justify-start">
-     <h2 id="footer-contato-title" class="font-subtitle text-base tracking-[0.2em] uppercase font-bold text-white mb-1">CONTATO</h2>
+     <p id="footer-contato-title" class="font-subtitle text-base tracking-[0.2em] uppercase font-bold text-white mb-1">CONTATO</p>
      <div class="space-y-2">
       <a href="https://www.google.com/maps/place/Manicura+Express+Nails/@-23.1881765,-46.9003919,17z/data=!3m1!4b1!4m6!3m5!1s0x94cf27d07eb6a011:0xeeb8cbfccf0aed8c!8m2!3d-23.1881765!4d-46.897817!16s%2Fg%2F11mdwjvs33?entry=ttu" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 justify-center hover:bg-white/10 rounded-lg px-3 py-2 transition-colors cursor-pointer focus:outline-none focus-ring w-full">
        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0" fill="none" viewbox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
@@ -292,7 +297,10 @@
       </a>
       <div class="flex items-center gap-2 justify-center">
        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0" fill="none" viewbox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
-       <a href="tel:+5511959963541" class="text-sm text-white hover:text-white/80 transition-colors">(11) 95996-3541</a>
+       <a href="tel:+5511959963541" class="text-sm text-white hover:text-white/80 transition-colors">Ligar (11) 95996-3541</a>
+      </div>
+      <div class="flex items-center gap-2 justify-center">
+       <a href="https://wa.me/5511947426514" target="_blank" rel="noopener" class="text-sm text-white hover:text-white/80 transition-colors">WhatsApp (11) 94742-6514</a>
       </div>
       <div class="flex items-center gap-2 justify-center">
        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0" fill="none" viewbox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
@@ -302,10 +310,14 @@
        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0" fill="none" viewbox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
        <p class="text-sm text-white leading-snug">Seg-Sex: 9h às 19h30 | Sáb: 8h às 12h</p>
       </div>
+      <div class="flex flex-col items-center">
+       <a href="https://g.page/r/CYztCs_8y7juEBM/review" target="_blank" rel="noopener" class="text-sm text-white underline hover:text-white/80 transition-colors" style="padding:.4rem 0">Avalie-nos no Google</a>
+       <a href="https://maps.google.com/?cid=17201723063407406476" target="_blank" rel="noopener" class="text-sm text-white underline hover:text-white/80 transition-colors" style="padding:.4rem 0">Ver no Google Maps</a>
+      </div>
      </div>
     </section>
     <section aria-labelledby="footer-social-title" class="space-y-3 text-center flex flex-col justify-start">
-     <h2 id="footer-social-title" class="font-subtitle text-base tracking-[0.2em] uppercase font-bold text-white mb-1">REDES SOCIAIS</h2>
+     <p id="footer-social-title" class="font-subtitle text-base tracking-[0.2em] uppercase font-bold text-white mb-1">REDES SOCIAIS</p>
      <div class="space-y-2 flex flex-col items-center">
       <a href="https://www.instagram.com/manicuraexpressnails" target="_blank" rel="noopener" class="flex items-center justify-center gap-3 w-full max-w-[200px] px-4 py-2 rounded-full bg-white/10 hover:bg-[#B46342] transition-colors focus:outline-none focus-ring group cursor-pointer">
        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" /></svg>
@@ -328,10 +340,23 @@
   </footer>
   <script>
     // Menu mobile toggle
-    document.getElementById('mobile-menu-toggle' ).addEventListener('click', () => {
-      const menu = document.getElementById('mobile-menu');
-      menu.classList.toggle('hidden');
-    });
+    (function () {
+      var btn = document.getElementById('mobile-menu-toggle');
+      var menu = document.getElementById('mobile-menu');
+      var main = document.getElementById('conteudo');
+      var skip = document.querySelector('.skip-link');
+      if (!btn || !menu) return;
+      function setMenu(open) {
+        menu.classList.toggle('hidden', !open);
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        btn.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
+      }
+      btn.addEventListener('click', function () { setMenu(menu.classList.contains('hidden')); });
+      document.addEventListener('keydown', function (ev) {
+        if (ev.key === 'Escape' && !menu.classList.contains('hidden')) { setMenu(false); btn.focus(); }
+      });
+      if (skip && main) skip.addEventListener('click', function () { main.focus({ preventScroll: true }); });
+    })();
 
     // Newsletter form handler
     document.getElementById('newsletter-form').addEventListener('submit', async (e) => {
